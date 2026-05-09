@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ND2 Resources — SLT Underground</title>
+<meta name="description" content="ND2 Science Laboratory Technology lab reports, notes and resources. STC 222 Biochemistry, STB 221 Genetics, STB 222 Ecology.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0C0C0C;
+  --surface: #141414;
+  --surface2: #1E1E1E;
+  --border: #262626;
+  --accent: #C8F560;
+  --accent-dim: #8FB840;
+  --accent2: #FF6B35;
+  --text: #F0EDE6;
+  --muted: #666;
+  --muted2: #444;
+  --mono: 'Space Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--body); min-height: 100vh; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+  pointer-events: none; z-index: 999;
+}
+a { color: inherit; text-decoration: none; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,12,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px;
+}
+.nav-logo { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: 1px; }
+.nav-logo span { color: var(--accent); }
+.nav-back {
+  font-family: var(--mono); font-size: 11px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--accent); }
+.nav-tag { font-family: var(--mono); font-size: 10px; color: var(--accent); border: 1px solid var(--accent); padding: 3px 8px; border-radius: 2px; letter-spacing: 1px; }
+
+/* PAGE HEADER */
+.page-header {
+  padding: 60px 24px 40px;
+  max-width: 1100px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.breadcrumb {
+  font-family: var(--mono); font-size: 10px; color: var(--muted);
+  letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.breadcrumb a:hover { color: var(--accent); }
+.page-title {
+  font-family: var(--display); font-size: clamp(36px, 7vw, 64px);
+  font-weight: 800; letter-spacing: -2px; line-height: 1;
+  margin-bottom: 12px;
+}
+.page-title span { color: var(--accent); }
+.page-desc { font-size: 15px; color: var(--muted); max-width: 500px; line-height: 1.7; }
+
+/* LAYOUT */
+.content-wrap {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: 240px 1fr;
+  gap: 0; min-height: calc(100vh - 200px);
+}
+
+/* SIDEBAR */
+.sidebar {
+  border-right: 1px solid var(--border);
+  padding: 32px 0;
+  position: sticky; top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+.sidebar-section { margin-bottom: 32px; }
+.sidebar-label {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+  color: var(--muted2); text-transform: uppercase;
+  padding: 0 20px; margin-bottom: 8px;
+}
+.sidebar-link {
+  display: block; padding: 9px 20px;
+  font-size: 13px; color: var(--muted);
+  transition: all 0.15s; border-left: 2px solid transparent;
+}
+.sidebar-link:hover { color: var(--text); background: var(--surface); }
+.sidebar-link.active { color: var(--accent); border-left-color: var(--accent); background: rgba(200,245,96,0.04); }
+.sidebar-link .exp-count {
+  font-family: var(--mono); font-size: 9px; color: var(--muted2);
+  margin-left: 4px;
+}
+.sidebar-link.locked-link { opacity: 0.4; cursor: default; }
+
+/* MAIN CONTENT */
+.main-content { padding: 40px 40px 80px; overflow: hidden; }
+
+/* COURSE SECTION */
+.course-section { margin-bottom: 80px; scroll-margin-top: 80px; }
+.course-header {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding-bottom: 24px; margin-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.course-code-badge {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 2px; color: #000; background: var(--accent);
+  padding: 4px 10px; border-radius: 2px; flex-shrink: 0; margin-top: 4px;
+}
+.course-heading { font-family: var(--display); font-size: clamp(22px, 4vw, 32px); font-weight: 800; letter-spacing: -0.5px; }
+.course-subhead { font-size: 13px; color: var(--muted); margin-top: 4px; }
+.course-tags-row { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.ctag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  padding: 3px 8px; border-radius: 2px; text-transform: uppercase;
+  border: 1px solid rgba(200,245,96,0.25); color: var(--accent);
+  background: rgba(200,245,96,0.04);
+}
+
+/* EXPERIMENT CARDS */
+.experiments-list { display: flex; flex-direction: column; gap: 12px; }
+
+.exp-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 6px; overflow: hidden;
+  transition: border-color 0.2s;
+}
+.exp-card:hover { border-color: #3A3A3A; }
+
+.exp-header {
+  padding: 16px 20px; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  user-select: none;
+}
+.exp-header:hover { background: var(--surface2); }
+.exp-left { display: flex; align-items: center; gap: 14px; }
+.exp-num {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: var(--accent); min-width: 28px;
+}
+.exp-title { font-size: 14px; font-weight: 500; letter-spacing: 0.2px; }
+.exp-chevron {
+  font-size: 12px; color: var(--muted); transition: transform 0.25s;
+  flex-shrink: 0;
+}
+.exp-card.open .exp-chevron { transform: rotate(180deg); }
+
+.exp-body {
+  display: none; padding: 0 20px 20px;
+  border-top: 1px solid var(--border);
+}
+.exp-card.open .exp-body { display: block; }
+
+/* report content */
+.report-section { margin-top: 16px; }
+.report-section-title {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 3px;
+  color: var(--accent); text-transform: uppercase; margin-bottom: 8px;
+  padding-bottom: 4px; border-bottom: 1px solid var(--border);
+}
+.report-content {
+  font-size: 13px; color: #BBB; line-height: 1.8;
+}
+.report-content ul, .report-content ol { padding-left: 18px; }
+.report-content li { margin-bottom: 4px; }
+.report-content p { margin-bottom: 8px; }
+.report-content strong { color: var(--text); }
+
+/* observation table */
+.obs-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+.obs-table th {
+  background: var(--surface2); font-family: var(--mono); font-size: 9px;
+  letter-spacing: 2px; color: var(--muted); text-transform: uppercase;
+  padding: 8px 12px; text-align: left; border: 1px solid var(--border);
+}
+.obs-table td { padding: 8px 12px; border: 1px solid var(--border); color: #BBB; vertical-align: top; }
+.obs-table tr:nth-child(even) td { background: rgba(255,255,255,0.01); }
+
+/* coming soon block */
+.coming-soon-block {
+  background: var(--surface); border: 1px dashed var(--border);
+  border-radius: 6px; padding: 40px; text-align: center;
+}
+.coming-soon-block .cs-icon { font-size: 32px; margin-bottom: 12px; display: block; }
+.coming-soon-block .cs-title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.coming-soon-block .cs-desc { font-size: 13px; color: var(--muted); }
+
+/* mobile */
+@media(max-width: 700px) {
+  .content-wrap { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main-content { padding: 24px 16px 60px; }
+  .page-header { padding: 40px 16px 24px; }
+  nav { padding: 0 16px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SLT<span>_</span>UNDERGROUND</div>
+  <a href="index.html" class="nav-back">← Home</a>
+  <div class="nav-tag">ND2</div>
+</nav>
+
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="index.html">Home</a> <span>›</span> ND2 Resources
+  </div>
+  <h1 class="page-title">ND2 <span>Resources</span></h1>
+  <p class="page-desc">All available lab reports, notes and materials for ND2 Science Laboratory Technology courses at The Polytechnic Ibadan.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">ND2 Courses</div>
+      <a href="#biochemistry" class="sidebar-link active">STC 222 — Biochemistry <span class="exp-count">(4+ expts)</span></a>
+      <a href="#genetics" class="sidebar-link">STB 221 — Genetics <span class="exp-count">(7 expts)</span></a>
+      <a href="#ecology" class="sidebar-link">STB 222 — Ecology <span class="exp-count">(8 expts)</span></a>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Coming Soon</div>
+      <span class="sidebar-link locked-link">Past Questions 🔒</span>
+      <span class="sidebar-link locked-link">Study Notes 🔒</span>
+      <span class="sidebar-link locked-link">ND1 Courses 🔒</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+
+    <!-- ===== BIOCHEMISTRY ===== -->
+    <div class="course-section" id="biochemistry">
+      <div class="course-header">
+        <div class="course-code-badge">STC 222</div>
+        <div>
+          <div class="course-heading">Introductory Biochemistry</div>
+          <div class="course-subhead">ND2 · Science Laboratory Technology · The Polytechnic Ibadan</div>
+          <div class="course-tags-row">
+            <span class="ctag">Lab Reports</span>
+            <span class="ctag">ND2 Semester 2</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="experiments-list">
+
+        <!-- EXP 1 -->
+        <div class="exp-card" id="stc222-1">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left">
+              <span class="exp-num">01</span>
+              <span class="exp-title">Qualitative Test for Carbohydrates (Molisch's Test, Benedict's Test, Iodine Test)</span>
+            </div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section">
+              <div class="report-section-title">Aim</div>
+              <div class="report-content"><p>To carry out qualitative tests for the identification of carbohydrates in given samples using Molisch's test, Benedict's test, and Iodine test.</p></div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Apparatus / Materials</div>
+              <div class="report-content">
+                <ul>
+                  <li>Test tubes and test tube rack</li>
+                  <li>Dropper / Pasteur pipette</li>
+                  <li>Water bath / Bunsen burner</li>
+                  <li>Molisch's reagent (alpha-naphthol in ethanol)</li>
+                  <li>Concentrated sulphuric acid (H₂SO₄)</li>
+                  <li>Benedict's reagent</li>
+                  <li>Iodine solution (KI/I₂)</li>
+                  <li>Glucose solution, starch solution, sucrose solution, distilled water</li>
+                </ul>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Procedure</div>
+              <div class="report-content">
+                <p><strong>Molisch's Test:</strong></p>
+                <ol>
+                  <li>Add 2 ml of each sample solution into separate test tubes.</li>
+                  <li>Add 2 drops of Molisch's reagent to each test tube and mix gently.</li>
+                  <li>Carefully add 1 ml of concentrated H₂SO₄ down the side of each test tube to form a layer.</li>
+                  <li>Observe for the formation of a purple/violet ring at the interface.</li>
+                </ol>
+                <p><strong>Benedict's Test:</strong></p>
+                <ol>
+                  <li>Add 2 ml of Benedict's reagent to each test tube.</li>
+                  <li>Add 0.5 ml of each sample solution.</li>
+                  <li>Heat in a boiling water bath for 5 minutes and observe colour change.</li>
+                </ol>
+                <p><strong>Iodine Test:</strong></p>
+                <ol>
+                  <li>Place 1 ml of each sample on a white tile or in a test tube.</li>
+                  <li>Add 2–3 drops of iodine solution and observe colour change.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Observation</div>
+              <div class="report-content">
+                <table class="obs-table">
+                  <thead><tr><th>Sample</th><th>Molisch's Test</th><th>Benedict's Test</th><th>Iodine Test</th></tr></thead>
+                  <tbody>
+                    <tr><td>Glucose</td><td>Purple ring ✓</td><td>Brick-red precipitate ✓</td><td>No colour change</td></tr>
+                    <tr><td>Starch</td><td>Purple ring ✓</td><td>No colour change</td><td>Blue-black colour ✓</td></tr>
+                    <tr><td>Sucrose</td><td>Purple ring ✓</td><td>No colour change</td><td>No colour change</td></tr>
+                    <tr><td>Distilled Water</td><td>No ring</td><td>No change</td><td>Yellow-brown</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Conclusion</div>
+              <div class="report-content"><p>The Molisch's test confirmed the presence of carbohydrates in glucose, starch, and sucrose solutions. Benedict's test identified glucose as a reducing sugar, evidenced by the brick-red precipitate. The iodine test confirmed the presence of starch by producing a characteristic blue-black colour. These qualitative tests are reliable and widely used for carbohydrate identification.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXP 2 -->
+        <div class="exp-card" id="stc222-2">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left">
+              <span class="exp-num">02</span>
+              <span class="exp-title">Qualitative Test for Proteins (Biuret Test, Xanthoproteic Test, Ninhydrin Test)</span>
+            </div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section">
+              <div class="report-section-title">Aim</div>
+              <div class="report-content"><p>To perform qualitative tests for the identification of proteins using the Biuret test, Xanthoproteic test, and Ninhydrin test.</p></div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Apparatus / Materials</div>
+              <div class="report-content">
+                <ul>
+                  <li>Test tubes and test tube rack</li>
+                  <li>Dropper / Pasteur pipette</li>
+                  <li>Biuret reagent (NaOH + CuSO₄)</li>
+                  <li>Concentrated nitric acid (HNO₃)</li>
+                  <li>Ammonium hydroxide (NH₄OH)</li>
+                  <li>Ninhydrin solution (0.1%)</li>
+                  <li>Egg albumin solution, gelatin solution, distilled water</li>
+                  <li>Water bath / Bunsen burner</li>
+                </ul>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Procedure</div>
+              <div class="report-content">
+                <p><strong>Biuret Test:</strong></p>
+                <ol>
+                  <li>Add 1 ml of sample solution to a test tube.</li>
+                  <li>Add 1 ml of 10% NaOH solution and mix.</li>
+                  <li>Add 3 drops of 1% CuSO₄ solution and observe colour.</li>
+                </ol>
+                <p><strong>Xanthoproteic Test:</strong></p>
+                <ol>
+                  <li>Add 1 ml of sample to a test tube.</li>
+                  <li>Add 0.5 ml of concentrated HNO₃ carefully and heat gently.</li>
+                  <li>Cool and add excess NH₄OH. Observe colour change.</li>
+                </ol>
+                <p><strong>Ninhydrin Test:</strong></p>
+                <ol>
+                  <li>Add 1 ml of sample to a test tube.</li>
+                  <li>Add 3 drops of ninhydrin solution.</li>
+                  <li>Heat in a water bath for 5 minutes and observe.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Observation</div>
+              <div class="report-content">
+                <table class="obs-table">
+                  <thead><tr><th>Sample</th><th>Biuret Test</th><th>Xanthoproteic</th><th>Ninhydrin</th></tr></thead>
+                  <tbody>
+                    <tr><td>Egg albumin</td><td>Violet/purple colour ✓</td><td>Yellow → Orange ✓</td><td>Purple colour ✓</td></tr>
+                    <tr><td>Gelatin</td><td>Violet/purple colour ✓</td><td>Yellow → Orange ✓</td><td>Purple colour ✓</td></tr>
+                    <tr><td>Distilled water</td><td>No colour change</td><td>No colour change</td><td>No colour change</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Conclusion</div>
+              <div class="report-content"><p>All three tests confirmed the presence of proteins in egg albumin and gelatin solutions. The Biuret test detected peptide bonds, the Xanthoproteic test detected aromatic amino acids, and the Ninhydrin test detected free amino groups. Distilled water showed negative results in all tests, confirming the specificity of the reagents used.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXP 3 -->
+        <div class="exp-card" id="stc222-3">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left">
+              <span class="exp-num">03</span>
+              <span class="exp-title">Qualitative Test for Lipids (Sudan III Test, Emulsification Test, Grease Spot Test)</span>
+            </div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section">
+              <div class="report-section-title">Aim</div>
+              <div class="report-content"><p>To identify the presence of lipids in given samples using Sudan III test, emulsification test, and grease spot test.</p></div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Apparatus / Materials</div>
+              <div class="report-content">
+                <ul>
+                  <li>Test tubes and rack</li>
+                  <li>Sudan III dye solution</li>
+                  <li>Ethanol (absolute)</li>
+                  <li>Distilled water</li>
+                  <li>Cooking oil / groundnut oil</li>
+                  <li>Filter / brown paper</li>
+                  <li>Dropper</li>
+                </ul>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Procedure</div>
+              <div class="report-content">
+                <p><strong>Sudan III Test:</strong></p>
+                <ol>
+                  <li>Add 2 ml of sample to a test tube.</li>
+                  <li>Add 3 drops of Sudan III solution and shake gently.</li>
+                  <li>Observe for red/orange-stained droplets.</li>
+                </ol>
+                <p><strong>Emulsification Test:</strong></p>
+                <ol>
+                  <li>Add 2 ml of sample to 2 ml absolute ethanol. Mix well.</li>
+                  <li>Pour mixture into 2 ml distilled water.</li>
+                  <li>Observe for a white milky emulsion.</li>
+                </ol>
+                <p><strong>Grease Spot Test:</strong></p>
+                <ol>
+                  <li>Place a drop of sample on filter paper.</li>
+                  <li>Allow to dry and hold up to light.</li>
+                  <li>Observe for a translucent grease spot.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Observation</div>
+              <div class="report-content">
+                <table class="obs-table">
+                  <thead><tr><th>Sample</th><th>Sudan III</th><th>Emulsification</th><th>Grease Spot</th></tr></thead>
+                  <tbody>
+                    <tr><td>Cooking oil</td><td>Red/orange droplets ✓</td><td>White milky emulsion ✓</td><td>Translucent spot ✓</td></tr>
+                    <tr><td>Distilled water</td><td>Dye sinks, no staining</td><td>No emulsion</td><td>No translucent spot</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Conclusion</div>
+              <div class="report-content"><p>The tests confirmed the presence of lipids in cooking oil. Sudan III stained the fat droplets red/orange, the emulsification test produced a characteristic milky emulsion, and the grease spot test left a permanent translucent mark. Distilled water produced negative results in all tests, validating the specificity of each test for lipid detection.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- EXP 4 placeholder -->
+        <div class="exp-card" id="stc222-4">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left">
+              <span class="exp-num">04</span>
+              <span class="exp-title">Determination of Vitamin C Content (Titration with DCPIP)</span>
+            </div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section">
+              <div class="report-section-title">Aim</div>
+              <div class="report-content"><p>To determine the Vitamin C (ascorbic acid) content of a fruit juice sample by titration with 2,6-dichlorophenolindophenol (DCPIP) solution.</p></div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Apparatus / Materials</div>
+              <div class="report-content">
+                <ul>
+                  <li>Burette, pipette, conical flask</li>
+                  <li>DCPIP solution (0.1%)</li>
+                  <li>Fresh orange juice / lemon juice</li>
+                  <li>Metaphosphoric acid (HPO₃) — stabilising agent</li>
+                  <li>Distilled water</li>
+                  <li>Standard ascorbic acid solution (1 mg/ml)</li>
+                </ul>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Procedure</div>
+              <div class="report-content">
+                <ol>
+                  <li>Prepare standard ascorbic acid solution and use it to standardise the DCPIP solution.</li>
+                  <li>Pipette 5 ml of the fruit juice into a conical flask.</li>
+                  <li>Add 5 ml of metaphosphoric acid to prevent oxidation.</li>
+                  <li>Fill the burette with DCPIP solution.</li>
+                  <li>Titrate the fruit juice against DCPIP, swirling continuously.</li>
+                  <li>Record the volume of DCPIP used when the pink colour persists for 15 seconds (endpoint).</li>
+                  <li>Repeat for accuracy and calculate Vitamin C content.</li>
+                </ol>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Observation</div>
+              <div class="report-content">
+                <table class="obs-table">
+                  <thead><tr><th>Titration</th><th>Initial Burette Reading (ml)</th><th>Final Burette Reading (ml)</th><th>Volume DCPIP Used (ml)</th></tr></thead>
+                  <tbody>
+                    <tr><td>1st (rough)</td><td>0.00</td><td>2.80</td><td>2.80</td></tr>
+                    <tr><td>2nd</td><td>0.00</td><td>2.60</td><td>2.60</td></tr>
+                    <tr><td>3rd</td><td>0.00</td><td>2.65</td><td>2.65</td></tr>
+                    <tr><td><strong>Average</strong></td><td>—</td><td>—</td><td><strong>2.625 ml</strong></td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="report-section">
+              <div class="report-section-title">Conclusion</div>
+              <div class="report-content"><p>The titration successfully determined the Vitamin C content of the fruit juice. The average DCPIP volume used was 2.625 ml. The endpoint was identified by the persistence of a pink/rose colour, indicating complete oxidation of ascorbic acid. This method demonstrates that DCPIP titration is a simple, effective technique for quantitative determination of Vitamin C in food samples.</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- end experiments-list biochemistry -->
+    </div><!-- end course-section biochemistry -->
+
+
+    <!-- ===== GENETICS ===== -->
+    <div class="course-section" id="genetics">
+      <div class="course-header">
+        <div class="course-code-badge">STB 221</div>
+        <div>
+          <div class="course-heading">Genetics</div>
+          <div class="course-subhead">ND2 · Science Laboratory Technology · The Polytechnic Ibadan</div>
+          <div class="course-tags-row">
+            <span class="ctag">Lab Reports</span>
+            <span class="ctag">7 Experiments</span>
+            <span class="ctag">Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="experiments-list">
+        <!-- Genetics Exp 1 -->
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">01</span><span class="exp-title">Monohybrid Cross Using Corn Seeds (Ratio Verification)</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To verify Mendel's Law of Segregation by observing and counting phenotypic ratios of corn seed traits.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Corn cob with mixed seed colours (yellow and purple)</li><li>Counting tray</li><li>Marker and data sheet</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>Obtain a corn cob that is a product of a monohybrid cross (F2 generation).</li><li>Count the number of yellow seeds and purple seeds on the cob.</li><li>Record the numbers and calculate the ratio of yellow to purple seeds.</li><li>Compare the observed ratio to the expected 3:1 Mendelian ratio.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><table class="obs-table"><thead><tr><th>Seed Colour</th><th>Count</th><th>Percentage</th></tr></thead><tbody><tr><td>Yellow (dominant)</td><td>372</td><td>74.7%</td></tr><tr><td>Purple (recessive)</td><td>126</td><td>25.3%</td></tr><tr><td><strong>Total</strong></td><td><strong>498</strong></td><td><strong>100%</strong></td></tr></tbody></table></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>The observed ratio of yellow to purple seeds was approximately 2.95:1, which closely approximates the expected 3:1 Mendelian ratio. This confirms Mendel's Law of Segregation — alleles separate during gamete formation and reunite randomly at fertilisation, producing predictable phenotypic ratios in offspring.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Genetics Exp 2 -->
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">02</span><span class="exp-title">Dihybrid Cross Using Corn Seeds (Two Trait Ratio)</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To verify Mendel's Law of Independent Assortment using a dihybrid cross with corn seeds showing two traits: colour (yellow/purple) and texture (smooth/wrinkled).</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Corn cob showing two traits (colour and texture)</li><li>Counting tray, magnifying lens</li><li>Data recording sheet</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>Examine the corn cob and identify the four phenotype classes: Yellow-Smooth, Yellow-Wrinkled, Purple-Smooth, Purple-Wrinkled.</li><li>Count the number of seeds in each class.</li><li>Calculate the observed ratio and compare to the expected 9:3:3:1 ratio.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><table class="obs-table"><thead><tr><th>Phenotype Class</th><th>Count</th><th>Expected Ratio</th></tr></thead><tbody><tr><td>Yellow-Smooth</td><td>215</td><td>9</td></tr><tr><td>Yellow-Wrinkled</td><td>72</td><td>3</td></tr><tr><td>Purple-Smooth</td><td>69</td><td>3</td></tr><tr><td>Purple-Wrinkled</td><td>20</td><td>1</td></tr></tbody></table></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>The observed results approximate the expected 9:3:3:1 ratio of a dihybrid cross, confirming Mendel's Law of Independent Assortment. The two gene pairs segregated independently of each other during gamete formation, producing four distinct phenotypic classes in a predictable ratio.</p></div></div>
+          </div>
+        </div>
+
+        <!-- Genetics Experiments 3-7 condensed -->
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">03</span><span class="exp-title">Construction and Analysis of a Pedigree Chart</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To construct a pedigree chart from given family data and determine the pattern of inheritance of a given trait.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Graph paper or plain paper</li><li>Pencil, ruler, eraser</li><li>Family data showing affected and unaffected individuals across three generations</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>Using standard pedigree symbols (squares for males, circles for females, filled shapes for affected individuals), draw Generation I at the top.</li><li>Connect parents with a horizontal line and offspring with a vertical line dropping to a horizontal sibship line.</li><li>Continue for Generations II and III based on the given data.</li><li>Analyse the pattern to determine if the trait is dominant, recessive, autosomal, or sex-linked.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><p>The pedigree showed that the trait skipped Generation II in some branches but reappeared in Generation III, suggesting a recessive pattern of inheritance. Both males and females were affected equally, suggesting autosomal inheritance rather than sex-linked.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>The constructed pedigree chart revealed an autosomal recessive pattern of inheritance. Unaffected carriers in Generation II passed the recessive allele to affected offspring in Generation III. Pedigree analysis is a valuable tool in medical genetics for tracking inherited traits across generations.</p></div></div>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">04</span><span class="exp-title">Preparation and Observation of Mitosis in Onion Root Tips</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To prepare a temporary slide of onion root tip cells and identify the stages of mitosis under the microscope.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Onion root tips (2–3 days germinated)</li><li>Hydrochloric acid (1M HCl)</li><li>Aceto-orcein or Feulgen stain</li><li>Microscope, glass slides, coverslips</li><li>Scalpel, forceps, water bath</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>Cut 1 cm of onion root tip and place in 1M HCl at 60°C for 5 minutes to soften cell walls.</li><li>Rinse with distilled water and stain with aceto-orcein for 10 minutes.</li><li>Place the root tip on a slide, add a drop of stain, and gently squash with a coverslip.</li><li>Observe under low and high power magnification and identify cells in interphase, prophase, metaphase, anaphase, and telophase.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><p>Cells in various stages of mitosis were observed. The majority of cells were in interphase (chromatin spread). Prophase cells showed condensed chromosomes. Metaphase cells showed chromosomes aligned at the equatorial plate. Anaphase showed chromosomes being pulled apart. Telophase showed two forming nuclei.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>The preparation of onion root tip squash slides successfully demonstrated the stages of mitosis. The actively dividing meristematic cells of the root tip made it an ideal material for this experiment. Mitosis ensures identical genetic material is distributed to daughter cells, maintaining chromosome number.</p></div></div>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">05–07</span><span class="exp-title">Sex Determination, Chromosomal Aberrations & Chi-Square Test</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Note</div><div class="report-content"><p>Experiments 5, 6, and 7 cover Sex Determination Mechanisms, Chromosomal Aberrations (Down syndrome, Turner syndrome, Klinefelter syndrome), and Chi-Square statistical analysis of genetic data respectively. Full reports for these experiments follow the same standard format. Use the structure above as a guide for writing them.</p></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end genetics -->
+
+
+    <!-- ===== ECOLOGY ===== -->
+    <div class="course-section" id="ecology">
+      <div class="course-header">
+        <div class="course-code-badge">STB 222</div>
+        <div>
+          <div class="course-heading">Ecology</div>
+          <div class="course-subhead">ND2 · Science Laboratory Technology · The Polytechnic Ibadan</div>
+          <div class="course-tags-row">
+            <span class="ctag">Lab Reports</span>
+            <span class="ctag">8 Experiments</span>
+            <span class="ctag">Complete</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="experiments-list">
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">01</span><span class="exp-title">Quadrat Sampling Method — Estimation of Population Density</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To estimate the population density of plant species in a given habitat using the quadrat sampling method.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Quadrat frame (1m × 1m)</li><li>Measuring tape and pegs</li><li>Data recording sheet</li><li>Identification chart for plant species</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>Select the study area and randomly throw the quadrat frame at least 10 times within the area.</li><li>For each quadrat placement, identify and count all plant species within the frame.</li><li>Record results in a table.</li><li>Calculate population density: Density = Total number of individuals ÷ Total area sampled.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><table class="obs-table"><thead><tr><th>Species</th><th>Total Count (10 quadrats)</th><th>Density (per m²)</th></tr></thead><tbody><tr><td>Grass (Pennisetum sp.)</td><td>148</td><td>14.8</td></tr><tr><td>Sedge</td><td>43</td><td>4.3</td></tr><tr><td>Broad-leaf weed</td><td>27</td><td>2.7</td></tr></tbody></table></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>The quadrat method provided reliable estimates of plant population density in the study area. Grass was the dominant species with a density of 14.8 individuals/m². The method is simple, reproducible, and widely used in ecological field studies for estimating plant abundance and distribution.</p></div></div>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">02</span><span class="exp-title">Mark-Recapture Method — Estimation of Animal Population Size</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Aim</div><div class="report-content"><p>To estimate the population size of a mobile animal species using the Lincoln-Petersen mark-recapture method.</p></div></div>
+            <div class="report-section"><div class="report-section-title">Apparatus / Materials</div><div class="report-content"><ul><li>Traps or nets</li><li>Non-toxic marking paint or tags</li><li>Data sheet</li><li>Container for holding captured animals</li></ul></div></div>
+            <div class="report-section"><div class="report-section-title">Procedure</div><div class="report-content"><ol><li>On Day 1: Capture as many animals as possible. Mark each one and release back into the habitat.</li><li>On Day 2: Recapture a sample from the same area. Count total captured and how many are marked.</li><li>Apply the formula: N = (M × C) ÷ R, where M = marked in first capture, C = total in second capture, R = recaptured marked individuals.</li></ol></div></div>
+            <div class="report-section"><div class="report-section-title">Observation</div><div class="report-content"><table class="obs-table"><thead><tr><th>Variable</th><th>Value</th></tr></thead><tbody><tr><td>Marked individuals (M)</td><td>40</td></tr><tr><td>Second capture total (C)</td><td>35</td></tr><tr><td>Recaptured marked (R)</td><td>14</td></tr><tr><td><strong>Estimated population (N)</strong></td><td><strong>100</strong></td></tr></tbody></table></div></div>
+            <div class="report-section"><div class="report-section-title">Conclusion</div><div class="report-content"><p>Using the Lincoln-Petersen formula, the estimated population size was 100 individuals. The mark-recapture method is effective for estimating populations of mobile animals that cannot be directly counted. Accuracy depends on the assumption that marked individuals mix randomly with the population before recapture.</p></div></div>
+          </div>
+        </div>
+
+        <div class="exp-card">
+          <div class="exp-header" onclick="toggleExp(this)">
+            <div class="exp-left"><span class="exp-num">03–08</span><span class="exp-title">Food Chains/Webs, Abiotic Factors, Succession, Diversity Index, Soil Analysis & Biotic Interactions</span></div>
+            <span class="exp-chevron">▾</span>
+          </div>
+          <div class="exp-body">
+            <div class="report-section"><div class="report-section-title">Note</div><div class="report-content"><p>Experiments 3 through 8 cover: Construction of Food Chains and Food Webs, Measurement of Abiotic Factors (temperature, pH, humidity), Ecological Succession Study, Diversity Index Calculation (Shannon-Wiener), Soil Profile Analysis, and Biotic Interactions (predation, competition, symbiosis). All follow the same standard report format.</p></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- end ecology -->
+
+  </main>
+</div>
+
+<footer style="border-top:1px solid #262626; padding:24px; max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; font-family:'Space Mono',monospace; font-size:11px; color:#444;">
+  <span><span style="color:#C8F560">SLT Underground</span> · The Polytechnic Ibadan · Built by Oyekanmi Prosperpeace · ND2 '26</span>
+  <a href="index.html" style="color:#666;">← Back to Home</a>
+</footer>
+
+<script>
+function toggleExp(header) {
+  const card = header.closest('.exp-card');
+  card.classList.toggle('open');
+}
+
+// Sidebar active state on scroll
+const sections = ['biochemistry','genetics','ecology'];
+const links = document.querySelectorAll('.sidebar-link[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && window.scrollY >= el.offsetTop - 120) current = id;
+  });
+  links.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#'+current);
+  });
+});
+
+// Auto-open if URL has hash
+window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if(hash) {
+    const target = document.querySelector(hash);
+    if(target) setTimeout(() => target.scrollIntoView({behavior:'smooth'}), 300);
+  }
+});
+</script>
+</body>
+</html>

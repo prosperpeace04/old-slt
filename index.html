@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLT Underground — The Polytechnic Ibadan</title>
+<meta name="description" content="The unofficial student resource hub for Science Laboratory Technology students at The Polytechnic Ibadan. Lab reports, notes, past questions — built to last.">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0C0C0C;
+  --surface: #141414;
+  --surface2: #1E1E1E;
+  --border: #262626;
+  --accent: #C8F560;
+  --accent-dim: #8FB840;
+  --accent2: #FF6B35;
+  --text: #F0EDE6;
+  --muted: #666;
+  --muted2: #444;
+  --mono: 'Space Mono', monospace;
+  --display: 'Syne', sans-serif;
+  --body: 'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* scanline texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.008) 2px, rgba(255,255,255,0.008) 4px);
+  pointer-events: none; z-index: 999;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== NAV ===== */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(12,12,12,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1px;
+}
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); font-family: var(--mono);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-tag {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--accent); border: 1px solid var(--accent);
+  padding: 3px 8px; border-radius: 2px; letter-spacing: 1px;
+  animation: tagBlink 3s ease-in-out infinite;
+}
+@keyframes tagBlink { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 92vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding: 60px 24px 40px;
+  position: relative;
+  overflow: hidden;
+  max-width: 1100px; margin: 0 auto;
+}
+
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(200,245,96,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(200,245,96,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono); font-size: 11px;
+  letter-spacing: 4px; color: var(--accent);
+  text-transform: uppercase; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 10px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-eyebrow::before {
+  content: ''; width: 32px; height: 1px; background: var(--accent);
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(52px, 10vw, 110px);
+  font-weight: 800; line-height: 0.92;
+  letter-spacing: -2px;
+  margin-bottom: 6px;
+  animation: fadeUp 0.6s 0.1s ease both; opacity: 0;
+}
+.hero-title .line2 {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(240,237,230,0.3);
+}
+.hero-title .accent-word { color: var(--accent); }
+
+.hero-subtitle {
+  font-family: var(--display);
+  font-size: clamp(18px, 3vw, 26px);
+  font-weight: 600; color: var(--muted);
+  margin: 16px 0 32px; letter-spacing: -0.5px;
+  animation: fadeUp 0.6s 0.2s ease both; opacity: 0;
+}
+
+.hero-desc {
+  font-size: 15px; color: var(--muted); line-height: 1.7;
+  max-width: 520px; margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.3s ease both; opacity: 0;
+}
+
+.hero-actions {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.4s ease both; opacity: 0;
+}
+.btn-primary {
+  background: var(--accent); color: #000;
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 3px;
+  border: none; cursor: pointer;
+  transition: all 0.2s; display: inline-block;
+}
+.btn-primary:hover { background: #d4ff6e; transform: translateY(-2px); }
+.btn-secondary {
+  background: transparent; color: var(--text);
+  font-family: var(--mono); font-size: 12px;
+  letter-spacing: 2px; text-transform: uppercase;
+  padding: 14px 28px; border-radius: 3px;
+  border: 1px solid var(--border);
+  transition: all 0.2s; display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-stats {
+  display: flex; gap: 40px; margin-top: 60px;
+  padding-top: 40px; border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s 0.5s ease both; opacity: 0;
+}
+.stat-item {}
+.stat-num {
+  font-family: var(--mono); font-size: 28px; font-weight: 700;
+  color: var(--accent); display: block; line-height: 1;
+}
+.stat-label { font-size: 11px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== SECTION COMMON ===== */
+section { padding: 80px 24px; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 4px; color: var(--accent);
+  text-transform: uppercase; margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-label::before { content:'//'; opacity: 0.5; }
+.section-title {
+  font-family: var(--display); font-size: clamp(28px, 5vw, 42px);
+  font-weight: 800; letter-spacing: -1px; margin-bottom: 8px;
+}
+.section-desc { font-size: 15px; color: var(--muted); max-width: 480px; line-height: 1.7; margin-bottom: 48px; }
+
+/* ===== COURSES GRID ===== */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden;
+}
+.course-card {
+  background: var(--surface);
+  padding: 28px 24px;
+  transition: background 0.2s;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  gap: 10px;
+}
+.course-card:hover { background: var(--surface2); }
+.course-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; width: 3px; height: 0;
+  background: var(--accent);
+  transition: height 0.3s ease;
+}
+.course-card:hover::before { height: 100%; }
+.course-code {
+  font-family: var(--mono); font-size: 10px;
+  letter-spacing: 3px; color: var(--accent);
+  text-transform: uppercase;
+}
+.course-name {
+  font-family: var(--display); font-size: 18px;
+  font-weight: 700; line-height: 1.2; letter-spacing: -0.3px;
+}
+.course-meta { font-size: 12px; color: var(--muted); }
+.course-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+.tag {
+  font-family: var(--mono); font-size: 9px; letter-spacing: 1px;
+  padding: 3px 8px; border-radius: 2px; text-transform: uppercase;
+  border: 1px solid var(--border); color: var(--muted);
+}
+.tag.available { border-color: rgba(200,245,96,0.3); color: var(--accent); background: rgba(200,245,96,0.05); }
+.tag.soon { border-color: rgba(255,107,53,0.3); color: var(--accent2); background: rgba(255,107,53,0.05); }
+.course-arrow {
+  margin-top: auto; font-family: var(--mono); font-size: 12px;
+  color: var(--muted2); transition: color 0.2s; padding-top: 8px;
+}
+.course-card:hover .course-arrow { color: var(--accent); }
+
+/* coming soon card */
+.course-card.locked { opacity: 0.5; cursor: default; }
+.course-card.locked:hover { background: var(--surface); }
+.course-card.locked::before { display: none; }
+
+/* ===== HOW IT WORKS ===== */
+.how-section { border-top: 1px solid var(--border); }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.step { position: relative; }
+.step-num {
+  font-family: var(--mono); font-size: 48px; font-weight: 700;
+  color: var(--border); line-height: 1; margin-bottom: 14px;
+}
+.step-title { font-family: var(--display); font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.step-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+/* ===== FOUNDER SECTION ===== */
+.founder-section {
+  border-top: 1px solid var(--border);
+}
+.founder-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px; padding: 40px;
+  display: grid; grid-template-columns: auto 1fr;
+  gap: 32px; align-items: start;
+  position: relative; overflow: hidden;
+}
+.founder-card::after {
+  content: '';
+  position: absolute; bottom: 0; right: 0;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(200,245,96,0.06) 0%, transparent 70%);
+}
+.founder-avatar {
+  width: 64px; height: 64px; border-radius: 4px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-weight: 700; font-size: 20px;
+  color: #000; flex-shrink: 0;
+}
+.founder-name {
+  font-family: var(--display); font-size: 22px;
+  font-weight: 800; margin-bottom: 4px; letter-spacing: -0.5px;
+}
+.founder-title {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--accent); letter-spacing: 2px; margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.founder-bio { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 560px; }
+.founder-links { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+.founder-link {
+  font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+  color: var(--muted); border: 1px solid var(--border);
+  padding: 6px 12px; border-radius: 2px; text-transform: uppercase;
+  transition: all 0.2s;
+}
+.founder-link:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 16px;
+  max-width: 1100px; margin: 0 auto;
+}
+.footer-left { font-family: var(--mono); font-size: 11px; color: var(--muted); line-height: 1.7; }
+.footer-left span { color: var(--accent); }
+.footer-right { font-family: var(--mono); font-size: 10px; color: var(--muted2); letter-spacing: 1px; }
+
+/* mobile */
+@media(max-width: 600px) {
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .hero { padding: 40px 16px 32px; min-height: auto; padding-top: 80px; }
+  .hero-stats { gap: 24px; flex-wrap: wrap; }
+  section { padding: 60px 16px; }
+  .founder-card { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+  footer { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">SLT<span>_</span>UNDERGROUND</div>
+  <div class="nav-links">
+    <a href="#courses">Courses</a>
+    <a href="#about">About</a>
+    <a href="nd2.html">ND2</a>
+  </div>
+  <div class="nav-tag">POLY IBADAN</div>
+</nav>
+
+<!-- HERO -->
+<div style="max-width:1100px;margin:0 auto;">
+<div class="hero">
+  <div class="hero-grid-bg"></div>
+
+  <div class="hero-eyebrow">Student Resource Hub · Est. 2026</div>
+
+  <h1 class="hero-title">
+    SLT<br>
+    <span class="line2">UNDER</span><span class="accent-word">GROUND</span>
+  </h1>
+
+  <div class="hero-subtitle">The Polytechnic Ibadan</div>
+
+  <p class="hero-desc">
+    The unofficial knowledge base for Science Laboratory Technology students.
+    Lab reports, study notes, past questions — built by a student, for students.
+    Free. Forever.
+  </p>
+
+  <div class="hero-actions">
+    <a href="nd2.html" class="btn-primary">Browse ND2 Resources →</a>
+    <a href="#about" class="btn-secondary">About This Project</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">3+</span>
+      <span class="stat-label">Courses</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">20+</span>
+      <span class="stat-label">Lab Reports</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">ND2</span>
+      <span class="stat-label">Current Level</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Always Free</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="section-label">What's Inside</div>
+  <h2 class="section-title">Browse by Course</h2>
+  <p class="section-desc">Start with ND2. More courses and levels will be added over time.</p>
+
+  <div class="courses-grid">
+
+    <a href="nd2.html#biochemistry" class="course-card">
+      <div class="course-code">STC 222</div>
+      <div class="course-name">Introductory Biochemistry</div>
+      <div class="course-meta">ND2 · Science Laboratory Technology</div>
+      <div class="course-tags">
+        <span class="tag available">Lab Reports</span>
+        <span class="tag soon">Notes Coming</span>
+      </div>
+      <div class="course-arrow">View Resources →</div>
+    </a>
+
+    <a href="nd2.html#genetics" class="course-card">
+      <div class="course-code">STB 221</div>
+      <div class="course-name">Genetics</div>
+      <div class="course-meta">ND2 · Science Laboratory Technology</div>
+      <div class="course-tags">
+        <span class="tag available">Lab Reports</span>
+        <span class="tag available">7 Experiments</span>
+      </div>
+      <div class="course-arrow">View Resources →</div>
+    </a>
+
+    <a href="nd2.html#ecology" class="course-card">
+      <div class="course-code">STB 222</div>
+      <div class="course-name">Ecology</div>
+      <div class="course-meta">ND2 · Science Laboratory Technology</div>
+      <div class="course-tags">
+        <span class="tag available">Lab Reports</span>
+        <span class="tag available">8 Experiments</span>
+      </div>
+      <div class="course-arrow">View Resources →</div>
+    </a>
+
+    <div class="course-card locked">
+      <div class="course-code">ND1</div>
+      <div class="course-name">ND1 Courses</div>
+      <div class="course-meta">Coming Soon</div>
+      <div class="course-tags">
+        <span class="tag soon">In Progress</span>
+      </div>
+      <div class="course-arrow">🔒 Not Yet Available</div>
+    </div>
+
+    <div class="course-card locked">
+      <div class="course-code">PAST Q</div>
+      <div class="course-name">Past Questions</div>
+      <div class="course-meta">Being Compiled</div>
+      <div class="course-tags">
+        <span class="tag soon">Coming Soon</span>
+      </div>
+      <div class="course-arrow">🔒 Not Yet Available</div>
+    </div>
+
+    <div class="course-card locked">
+      <div class="course-code">NOTES</div>
+      <div class="course-name">Study Notes</div>
+      <div class="course-meta">Being Written</div>
+      <div class="course-tags">
+        <span class="tag soon">Coming Soon</span>
+      </div>
+      <div class="course-arrow">🔒 Not Yet Available</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section">
+  <div class="section-label">How To Use</div>
+  <h2 class="section-title">Simple. Free. Always.</h2>
+  <p class="section-desc">No login. No payment. No nonsense. Just resources.</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Pick Your Course</div>
+      <div class="step-desc">Browse by course code or level. Everything is clearly labelled so you find what you need fast.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Read or Copy</div>
+      <div class="step-desc">All lab reports follow the standard format — Title, Aim, Apparatus, Procedure, Observation, Conclusion. Use them as reference or study guides.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Share With Your Set</div>
+      <div class="step-desc">Send this link to your coursemates. The more students that use it, the more it grows.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-section" id="about">
+  <div class="section-label">Who Built This</div>
+  <h2 class="section-title">The Founder</h2>
+  <p class="section-desc">This project was built and left behind by one student as a lasting contribution to the department.</p>
+
+  <div class="founder-card">
+    <div class="founder-avatar">OP</div>
+    <div>
+      <div class="founder-name">Oyekanmi Prosperpeace Oluwajuwonlo</div>
+      <div class="founder-title">ND2 · Science Laboratory Technology · Class of 2026</div>
+      <p class="founder-bio">
+        I built SLT Underground in my final semester because I wanted to leave something useful behind —
+        not just a name on a list, but a tool that actually helps students who come after me.
+        Every lab report here was written from real coursework. Use them, learn from them, build on them.
+        This site is yours now.
+      </p>
+      <div class="founder-links">
+        <a href="https://oyekanmiprosperpeace.netlify.app" target="_blank" class="founder-link">Portfolio ↗</a>
+        <a href="https://x.com/oprosperpeace" target="_blank" class="founder-link">X / Twitter ↗</a>
+        <a href="mailto:oyekanmiprosperpeace04@gmail.com" class="founder-link">Email ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <span>SLT Underground</span> · The Polytechnic Ibadan<br>
+    Built by Oyekanmi Prosperpeace · ND2 Class of 2026<br>
+    Free forever. Share freely.
+  </div>
+  <div class="footer-right">
+    Science Laboratory Technology Dept
+  </div>
+</footer>
+
+</body>
+</html>
