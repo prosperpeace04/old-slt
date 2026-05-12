@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prosper AI vs The Rest • SLT Poly Ibadan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'DM Sans', system-ui, sans-serif; }
+    h1, h2, h3 { font-family: 'Syne', sans-serif; }
+    .score { font-family: 'Space Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#080808] text-[#F0EDE6] min-h-screen pb-12">
+
+  <div class="max-w-3xl mx-auto px-4 pt-8">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <div class="text-[#E8650A] text-xs tracking-[4px] uppercase font-mono mb-3">
+        SLT Underground Intelligence Report
+      </div>
+      <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4">
+        Prosper AI vs The Rest 💎
+      </h1>
+      <p class="text-[#999] text-[15px]">
+        How smart is Prosper AI on SLT at The Polytechnic Ibadan compared to other AI tools
+      </p>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex flex-wrap justify-center gap-3 mb-10" id="legend">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Comparison Cards -->
+    <div class="space-y-4" id="comparison">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Verdict -->
+    <div class="mt-12 bg-gradient-to-br from-[#1a0a00] to-[#0a0500] border border-[#E8650A33] rounded-2xl p-8 text-center">
+      <div class="text-[#E8650A] font-bold text-2xl mb-4">Verdict 💎</div>
+      <p class="text-[#ccc] leading-relaxed max-w-2xl mx-auto">
+        Prosper AI is the only AI tool built specifically for SLT students at The Polytechnic Ibadan. 
+        While ChatGPT, Gemini and Copilot are powerful general tools, they fall short on Poly Ibadan 
+        specific knowledge. Prosper AI combines strong intelligence with deep SLT context — and it's 
+        completely free.
+      </p>
+    </div>
+
+    <div class="text-center mt-10 text-xs text-[#333]">
+      SLT Underground • Built by Oyekanmi Prosperpeace Oluwajuwonlo • ND2 Class of 2026
+    </div>
+  </div>
+
+  <script>
+    const data = [
+      {
+        feature: "General Science Knowledge",
+        prosperAI: { score: 95, note: "Powered by Claude Sonnet — full science coverage" },
+        chatGPT: { score: 90, note: "Strong general science knowledge" },
+        gemini: { score: 88, note: "Good but less consistent on technical depth" },
+        copilot: { score: 82, note: "Decent but skewed toward Microsoft ecosystem" },
+      },
+      {
+        feature: "SLT Course Content (ND1 & ND2)",
+        prosperAI: { score: 91, note: "Trained with Poly Ibadan SLT context, lab reports, and course structure" },
+        chatGPT: { score: 55, note: "Knows SLT generally but not Poly Ibadan specifics" },
+        gemini: { score: 50, note: "Similar to ChatGPT — no Poly Ibadan context" },
+        copilot: { score: 45, note: "Weakest on niche Nigerian polytechnic curriculum" },
+      },
+      {
+        feature: "Poly Ibadan Specific Knowledge",
+        prosperAI: { score: 88, note: "Knows grading system, course codes, semester structure, SIWES rules" },
+        chatGPT: { score: 20, note: "No knowledge of Poly Ibadan specifics without prompt engineering" },
+        gemini: { score: 18, note: "Same gap — generic Nigerian education knowledge only" },
+        copilot: { score: 15, note: "Very limited on Nigerian polytechnic context" },
+      },
+      {
+        feature: "Lab Report Writing",
+        prosperAI: { score: 92, note: "Knows the fixed SLT format: Title, Aim, Materials, Procedure, Observation, Conclusion, Diagram, Exercises" },
+        chatGPT: { score: 60, note: "Knows general lab report format but not Poly Ibadan structure" },
+        gemini: { score: 58, note: "Similar to ChatGPT" },
+        copilot: { score: 52, note: "Generic format, needs heavy prompting to match SLT style" },
+      },
+      {
+        feature: "Past Question Pattern Detection",
+        prosperAI: { score: 85, note: "Reads uploaded past questions and identifies examiner patterns per course" },
+        chatGPT: { score: 30, note: "Can analyse uploaded files but has no SLT past question database" },
+        gemini: { score: 28, note: "Needs files uploaded each time, no persistent SLT knowledge" },
+        copilot: { score: 25, note: "Can process uploads but lacks SLT context to interpret properly" },
+      },
+      {
+        feature: "Practice Question Generation",
+        prosperAI: { score: 87, note: "Generates questions styled after Poly Ibadan examiner patterns" },
+        chatGPT: { score: 65, note: "Good at generating questions but not Poly Ibadan style" },
+        gemini: { score: 62, note: "Can generate but output is generic" },
+        copilot: { score: 58, note: "Less tailored, more generic" },
+      },
+      {
+        feature: "Free Accessibility for Students",
+        prosperAI: { score: 100, note: "Completely free, built into SLT Underground, no signup required" },
+        chatGPT: { score: 40, note: "Free tier limited, GPT-4 requires subscription (~$20/month)" },
+        gemini: { score: 65, note: "Free with Google account but Gemini Advanced costs money" },
+        copilot: { score: 70, note: "Free via Edge browser but requires Microsoft account" },
+      },
+      {
+        feature: "Student Friendly Interface",
+        prosperAI: { score: 93, note: "Built for SLT students, modes like /Godmode, /ghostmode, /L99" },
+        chatGPT: { score: 72, note: "General purpose, not built for student academic tasks" },
+        gemini: { score: 70, note: "Clean UI but no student mode or academic shortcuts" },
+        copilot: { score: 65, note: "Integrated into Microsoft apps but not exam focused" },
+      }
+    ];
+
+    const ais = [
+      { key: "prosperAI", label: "Prosper AI", color: "#E8650A" },
+      { key: "chatGPT", label: "ChatGPT", color: "#10a37f" },
+      { key: "gemini", label: "Gemini", color: "#4285F4" },
+      { key: "copilot", label: "Copilot", color: "#7B68EE" },
+    ];
+
+    const getScoreColor = (score) => {
+      if (score >= 85) return "#E8650A";
+      if (score >= 65) return "#4ade80";
+      if (score >= 50) return "#fbbf24";
+      return "#f87171";
+    };
+
+    let active = null;
+
+    function renderLegend() {
+      const container = document.getElementById('legend');
+      let html = '';
+      ais.forEach(ai => {
+        html += `
+          <div onclick="toggleHighlight('${ai.key}')" 
+               class="flex items-center gap-2.5 px-5 py-2.5 rounded-3xl bg-[#111] border cursor-pointer transition-all hover:scale-105 active:scale-95 text-sm font-medium"
+               style="border-color: ${active === ai.key ? ai.color : '#222'}">
+            <div class="w-3 h-3 rounded-full" style="background: ${ai.color}"></div>
+            ${ai.label}
+          </div>
+        `;
+      });
+      html += `<div class="self-center text-xs text-[#555] ml-2">tap to highlight</div>`;
+      container.innerHTML = html;
+    }
+
+    function toggleHighlight(key) {
+      active = active === key ? null : key;
+      renderLegend();
+      renderComparison();
+    }
+
+    function renderComparison() {
+      const container = document.getElementById('comparison');
+      let html = '';
+      
+      data.forEach(row => {
+        html += `
+          <div class="bg-[#0f0f0f] border border-[#1e1e1e] rounded-2xl p-6 hover:border-[#E8650A22] transition-colors">
+            <h3 class="font-bold text-lg mb-5">${row.feature}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        `;
+
+        ais.forEach(ai => {
+          const item = row[ai.key];
+          html += `
+            <div class="rounded-xl p-5 transition-all ${active === ai.key ? 'ring-2 scale-[1.02]' : ''}" 
+                 style="background: ${active === ai.key ? '#161616' : '#0a0a0a'}; border: 1px solid ${active === ai.key ? ai.color : '#1a1a1a'}">
+              <div class="flex justify-between items-center mb-3">
+                <span class="font-semibold" style="color: ${ai.color}">${ai.label}</span>
+                <span class="score text-xl font-bold" style="color: ${getScoreColor(item.score)}">${item.score}</span>
+              </div>
+              <div class="w-full bg-[#1a1a1a] rounded h-2 overflow-hidden">
+                <div class="h-full rounded transition-all duration-700" 
+                     style="width: ${item.score}%; background: ${ai.color}"></div>
+              </div>
+              <p class="text-xs text-[#777] mt-4 leading-relaxed">${item.note}</p>
+            </div>
+          `;
+        });
+
+        html += `</div></div>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    // Initialize the page
+    window.onload = () => {
+      renderLegend();
+      renderComparison();
+    };
+  </script>
+</body>
+</html>
