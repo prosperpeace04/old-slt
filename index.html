@@ -2,124 +2,554 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>SLT Underground — Everything an SLT student at Poly Ibadan needs</title>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SLT Underground - Everything an SLT Student Needs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #080808;
+            color: #F0EDE6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        /* Header with burnt orange gradient */
+        .hero {
+            background: linear-gradient(145deg, #E8650A 0%, #B84C00 35%, #080808 80%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-size: 3rem;
+            letter-spacing: -0.02em;
+        }
+        .btn-orange {
+            background: #E8650A;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            color: #080808;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid #222;
+        }
+        h2 {
+            color: #E8650A;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+        .card {
+            background: #111;
+            border-radius: 20px;
+            padding: 24px;
+            border: 1px solid #333;
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            gap: 20px;
+        }
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .menu-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: #111;
+            border: 1px solid #E8650A;
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            z-index: 100;
+            color: white;
+            font-weight: bold;
+        }
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 260px;
+            height: 100%;
+            background: #0a0a0a;
+            z-index: 200;
+            transition: left 0.3s;
+            padding: 80px 20px;
+            border-right: 1px solid #E8650A;
+        }
+        .side-menu.open {
+            left: 0;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 150;
+            display: none;
+        }
+        .side-menu a {
+            display: block;
+            color: #F0EDE6;
+            text-decoration: none;
+            padding: 12px 0;
+            border-bottom: 1px solid #222;
+        }
+        .side-menu a:hover {
+            color: #E8650A;
+        }
+        .pq-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .pq-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            color: white;
+        }
+        .pq-btn:hover, .pq-btn.active {
+            background: #E8650A;
+            color: #080808;
+        }
+        .exam-paper {
+            background: #0a0a0a;
+            border: 1px solid #E8650A;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+        .download-btn {
+            background: #E8650A;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+        .coming-soon {
+            background: #1a1a1a;
+            padding: 40px;
+            text-align: center;
+            border-radius: 20px;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
 
-<div class="hamburger" id="hamburgerBtn">
-    <i class="fas fa-bars"></i>
-</div>
-<div class="menu-overlay" id="menuOverlay"></div>
-
+<div class="menu-btn" id="menuBtn">☰ MENU</div>
+<div class="overlay" id="overlay"></div>
 <div class="side-menu" id="sideMenu">
-    <div class="menu-nav-item"><a class="menu-nav-link" href="index.html">Home</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="past-questions.html">Past Questions</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="report-books.html">ND2 Report Books</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="course-outline.html">Course Outline</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="notes.html">Notes</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="brochure.html">SLT Brochure</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="gp-calculator.html">GP Calculator</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="project-guide.html">Project & Seminar Guide</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="siwes.html">SIWES Resources</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="career.html">Career Hub</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="entrepreneurship.html">Entrepreneurship</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="calendar.html">Academic Calendar</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="prosper-ai.html">Prosper AI <span class="badge-new">NEW</span> 💎</a></div>
-    <div class="menu-nav-item"><a class="menu-nav-link" href="about.html">About Founder</a></div>
-    <div class="founder-card">
-        <i class="fas fa-user-astronaut" style="font-size: 36px; color:#E8650A;"></i>
-        <h4>Oyekanmi Prosperpeace</h4>
-        <p>Founder, SLT Underground</p>
-        <a href="https://oyekanmiprosperpeace.netlify.app" style="color:#E8650A;">Portfolio</a>
+    <a href="#" onclick="closeMenu(); showSection('home')">🏠 HOME</a>
+    <a href="#" onclick="closeMenu(); showSection('pastq')">📄 PAST QUESTIONS</a>
+    <a href="#" onclick="closeMenu(); showSection('reports')">📚 REPORT BOOKS</a>
+    <a href="#" onclick="closeMenu(); showSection('gpcalc')">📊 GP CALCULATOR</a>
+    <a href="#" onclick="closeMenu(); showSection('ai')">🤖 PROSPER AI</a>
+    <a href="#" onclick="closeMenu(); showSection('brochure')">📖 SLT BROCHURE</a>
+    <a href="#" onclick="closeMenu(); showSection('about')">👤 ABOUT</a>
+</div>
+
+<div class="hero" id="home">
+    <h1>SLT UNDERGROUND</h1>
+    <p style="margin-top: 15px; font-size: 1.2rem;">Everything an SLT student at Poly Ibadan needs.<br>From your first day to graduation day.</p>
+    <button class="btn-orange" onclick="showSection('pastq')">Explore Resources</button>
+</div>
+
+<div class="section" id="pastq">
+    <h2>📄 PAST QUESTIONS</h2>
+    <div class="pq-buttons" id="levelButtons"></div>
+    <div id="courseList"></div>
+    <div id="examViewer" class="exam-paper" style="display: none;"></div>
+</div>
+
+<div class="section" id="reports">
+    <h2>📚 ND2 SECOND SEMESTER REPORT BOOKS</h2>
+    <div class="grid">
+        <div class="card"><h3>Biochemistry (STC 222)</h3><p>7 experiments: Sugar tests, Protein tests, Glucose estimation</p></div>
+        <div class="card"><h3>Genetics (STB 221)</h3><p>7 experiments: Mitosis, Meiosis, Dominance, Variation</p></div>
+        <div class="card"><h3>Ecology (STB 222)</h3><p>8 experiments: Soil properties, Population studies</p></div>
+        <div class="card"><h3>STP 221 Maintenance</h3><p>6 practicals: Tools, Wiring, Component testing</p></div>
+        <div class="card"><h3>GLT 222 Glass Blowing</h3><p>Glass cutting, Drilling, Grinding techniques</p></div>
     </div>
 </div>
 
-<section class="hero-gradient" style="position:relative; min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center;">
-    <div class="bg-dna" style="position:absolute; inset:0; opacity:0.3;"></div>
-    <div class="container" style="position:relative; z-index:2; padding: 100px 24px;">
-        <h1 style="font-size: clamp(2.8rem, 8vw, 5rem);">SLT UNDERGROUND</h1>
-        <p style="font-size: 1.4rem; margin: 20px 0; max-width:700px; margin-left:auto; margin-right:auto;">Everything an SLT student at Poly Ibadan needs. From your first day to graduation day.</p>
-        <a href="past-questions.html" class="btn-orange" style="display:inline-block; text-decoration:none;"><i class="fas fa-arrow-down"></i> Explore Resources</a>
+<div class="section" id="gpcalc">
+    <h2>📊 GP CALCULATOR (Poly Ibadan Scale)</h2>
+    <div class="grid">
+        <div><input type="text" id="courseCode" placeholder="Course Code" style="width:100%;padding:12px;background:#1a1a1a;border:1px solid #333;color:white;border-radius:10px;"></div>
+        <div><input type="number" id="creditUnit" placeholder="Credit Unit" value="3" style="width:100%;padding:12px;background:#1a1a1a;border:1px solid #333;color:white;border-radius:10px;"></div>
+        <div><select id="gradeSelect" style="width:100%;padding:12px;background:#1a1a1a;border:1px solid #333;color:white;border-radius:10px;">
+            <option value="4.0">A (75-100%) 4.0</option><option value="3.5">AB (70-74) 3.5</option><option value="3.25">B (65-69) 3.25</option>
+            <option value="3.0">BC (60-64) 3.0</option><option value="2.75">C (55-59) 2.75</option><option value="2.5">CD (50-54) 2.5</option>
+            <option value="2.25">D (45-49) 2.25</option><option value="2.0">DE (40-44) 2.0</option><option value="0">F (0-39) 0</option>
+        </select></div>
+        <button class="btn-orange" id="addCourseBtn">Add Course</button>
     </div>
-    <div class="wave-divider">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,64L80,69C160,75,320,85,480,80C640,75,800,53,960,48C1120,43,1280,53,1360,58L1440,64L1440,120L1360,120C1280,120,1120,120,960,120C800,120,640,120,480,120C320,120,160,120,80,120L0,120Z" fill="#080808"></path>
-        </svg>
+    <ul id="coursesList" style="list-style:none; margin-top:20px;"></ul>
+    <div style="background:#000; padding:20px; border-radius:20px; text-align:center; margin-top:20px;">
+        <p id="gpaResult">GPA: 0.00</p>
+        <p id="classification">Classification: --</p>
     </div>
-</section>
+</div>
 
-<main>
-    <div class="section">
-        <div class="container">
-            <h2 class="display-font" style="text-align:center; margin-bottom: 40px;">What You'll Find Here</h2>
-            <div class="grid-2">
-                <div class="card">
-                    <i class="fas fa-file-alt" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>Past Questions</h3>
-                    <p>ND1 and ND2 past questions organized by level, semester, and year. Search by course code.</p>
-                    <a href="past-questions.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">View</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-flask" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>Report Books</h3>
-                    <p>Complete ND2 Second Semester laboratory reports for Biochemistry, Genetics, Ecology, and more.</p>
-                    <a href="report-books.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">View</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-chalkboard" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>Course Outlines</h3>
-                    <p>Topics extracted from past questions for each course across all semesters.</p>
-                    <a href="course-outline.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">View</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-calculator" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>GP Calculator</h3>
-                    <p>Calculate your GPA using Poly Ibadan 9-band grading scale. What-if scenario included.</p>
-                    <a href="gp-calculator.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">View</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-robot" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>Prosper AI 💎</h3>
-                    <p>Ask any science question. Use /Godmode, /L99, or /ghostmode for different response depths.</p>
-                    <a href="prosper-ai.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">Chat Now</a>
-                </div>
-                <div class="card">
-                    <i class="fas fa-briefcase" style="font-size: 40px; color:#E8650A;"></i>
-                    <h3>Career Hub</h3>
-                    <p>NISLT certification, job roles, CV templates, and entrepreneurship ideas for SLT graduates.</p>
-                    <a href="career.html" class="btn-orange" style="display:inline-block; margin-top:15px; text-decoration:none;">Explore</a>
-                </div>
-            </div>
+<div class="section" id="ai">
+    <h2>🤖 PROSPER AI 💎</h2>
+    <div class="card">
+        <div id="chatBox" style="height:300px; overflow-y:auto; background:#0a0a0a; padding:15px; border-radius:16px; margin-bottom:15px;">
+            <p>💎 Greetings. I am Prosper AI. Ask me anything about SLT, science, or Poly Ibadan courses.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <input type="text" id="aiInput" placeholder="Type your question... /godmode, /l99, /ghostmode" style="flex:1; padding:12px; background:#1a1a1a; border:none; color:white; border-radius:30px;">
+            <button id="sendAiBtn" style="background:#E8650A; border:none; padding:12px 20px; border-radius:30px; cursor:pointer;">Send</button>
         </div>
     </div>
-</main>
+</div>
+
+<div class="section" id="brochure">
+    <h2>📖 SLT BROCHURE</h2>
+    <div class="card">
+        <p><strong>History:</strong> Department became full in 2006, carved out of Biology, Chemistry and Physics departments.</p>
+        <p><strong>Career Prospects:</strong> Universities, Research Institutes, Quality Control, Pharmaceuticals, Agriculture, Forestry.</p>
+        <p><strong>Admission:</strong> 5 credits including Maths + two sciences. Pass mark 40%.</p>
+        <p><strong>Results Codes:</strong> NS (No Score), CO (Carry Over), CSO (Courses Still Outstanding), WAR (Warning), SUS (Suspension), WIT (Withdrawal).</p>
+        <p><strong>SIWES:</strong> After ND1 Second Semester, 3-4 months.</p>
+        <p><strong>Project/Seminar:</strong> Seminar = Chapters 1-3 PPT; Project = full report Chapters 1-5.</p>
+    </div>
+</div>
+
+<div class="section" id="about">
+    <h2>👤 ABOUT THE FOUNDER</h2>
+    <div class="card">
+        <p><strong>Oyekanmi Prosperpeace Oluwajuwonlo</strong> (Mysterious Rey)</p>
+        <p>ND2 final semester student at The Polytechnic Ibadan, Department of Science Laboratory Technology.</p>
+        <p>Creator of SLT Underground to leave a legacy for future SLT students.</p>
+        <p>Connect: <a href="https://x.com/OProsperpeace" style="color:#E8650A;">X (Twitter)</a> | <a href="https://github.com/prosperpeace04" style="color:#E8650A;">GitHub</a></p>
+    </div>
+</div>
 
 <footer>
-    <p>SLT Underground — Built by Oyekanmi Prosperpeace Oluwajuwonlo — ND2 Class of 2026</p>
+    <p>SLT Underground — Built by Oyekanmi Prosperpeace — ND2 Class of 2026</p>
     <p>Free forever. Share freely. 💎</p>
-    <a href="https://schooltry.polyibadan.edu.ng/student" style="color:#E8650A;">School Portal</a>
 </footer>
 
 <script>
-    const ham = document.getElementById("hamburgerBtn");
-    const menu = document.getElementById("sideMenu");
-    const overlay = document.getElementById("menuOverlay");
-
+    // Menu functions
     function closeMenu() {
-        menu.classList.remove("open");
-        overlay.classList.remove("active");
+        document.getElementById('sideMenu').classList.remove('open');
+        document.getElementById('overlay').style.display = 'none';
+    }
+    document.getElementById('menuBtn').onclick = () => {
+        document.getElementById('sideMenu').classList.add('open');
+        document.getElementById('overlay').style.display = 'block';
+    };
+    document.getElementById('overlay').onclick = closeMenu;
+    function showSection(id) {
+        closeMenu();
+        document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
     }
 
-    ham.onclick = () => {
-        menu.classList.add("open");
-        overlay.classList.add("active");
-    };
-    overlay.onclick = closeMenu;
-</script>
+    // Past Questions Database
+    const pastQuestions = {
+        "STB 121": `THE POLYTECHNIC, IBADAN
+FACULTY OF SCIENCE
+DEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY
 
+SECOND SEMESTER EXAMINATION, 2023/2024
+
+COURSE TITLE: CELL BIOLOGY
+COURSE CODE: STB 121
+TIME: 2 HOURS
+
+ANSWER ANY FOUR QUESTIONS
+
+1a. Define cell.
+1b. State the cell theory.
+1c. State functions of: Mitochondria, Golgi apparatus, ER, Lysosome, Ribosome.
+
+2a. Define Mitosis.
+2b. Explain stages of mitosis with diagram.
+2c. State three significance of Mitosis.
+
+3a. Differentiate between respiration and fermentation.
+3b. Give four differences between aerobic and anaerobic respiration.`,
+
+        "STC 121": `THE POLYTECHNIC, IBADAN
+DEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+COURSE CODE: STC 121
+COURSE TITLE: ORGANIC CHEMISTRY I
+TIME: 2 HOURS
+
+ANSWER FOUR QUESTIONS
+
+1a. Define Isomerism and Functional Group.
+1b. State properties of Homologous Series.
+1c. Draw: 2,4-dimethyl pentane, 1,3-dimethyl hexane.
+
+2a. What is Homologous Series?
+2b. State first three members of Alkenes.
+2c. Draw structure of 3-ethyl-4,5-dimethyl-hept-1-yne.`,
+
+        "STC 122": `THE POLYTECHNIC, IBADAN
+SCIENCE LABORATORY TECHNOLOGY DEPARTMENT
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+COURSE CODE: STC 122
+COURSE TITLE: PHYSICAL CHEMISTRY
+TIME: 2 HOURS
+
+ANSWER FOUR QUESTIONS
+
+1a. Define Rate of chemical reaction and Vapour pressure.
+1b. State six factors affecting rate of reaction.
+1c. State Raoult's law.
+
+2a. Define Electrolysis.
+2b. State Faraday's First and Second Laws.
+2c. Calculate mass of copper deposited with 3A for 2 hours.`,
+
+        "STC 123": `THE POLYTECHNIC, IBADAN
+DEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+COURSE CODE: STC 123
+COURSE TITLE: ANALYTICAL CHEMISTRY
+TIME: 2.5 HOURS
+
+ANSWER FIVE QUESTIONS
+
+1a. Differences between classical and instrumental methods.
+1b. Define Qualitative and Quantitative Analysis.
+
+2a. Prepare 500ml of 15% w/v glucose solution.
+2b. Calculate dilution of H2SO4 from 1.50M to 0.05M.`,
+
+        "GLT 121": `THE POLYTECHNIC, IBADAN
+SCIENCE LABORATORY TECHNOLOGY DEPARTMENT
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+GLT 121: GENERAL LABORATORY TECHNIQUES II
+TIME: 2 HOURS
+
+ANSWER FOUR QUESTIONS
+
+1a. Discuss safe storage of chemicals.
+1b. Highlight ways to manage laboratory wastes.
+
+2a. Mention ten ways purity can be achieved.
+2b. Draw labelled diagram of distillation.
+
+3a. Properties of ideal extraction solvents.
+3b. Calculate grams of NaOH for 500ml of 0.5M solution.`,
+
+        "COM 123": `THE POLYTECHNIC, IBADAN
+DEPARTMENT OF COMPUTER STUDIES
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+COM 123: COMPUTER APPLICATION PACKAGES I
+TIME: 2.5 HOURS
+
+ANSWER ANY FOUR QUESTIONS
+
+1a. What is Word Processing?
+1b. Explain four features of Word Processing.
+1c. State five advantages over manual typewriter.
+
+2a. Differences between System and Application Software.
+2b. Examples of System Software and Application Software.`,
+
+        "PTD 121": `THE POLYTECHNIC, IBADAN
+MECHANICAL ENGINEERING DEPARTMENT
+
+SECOND SEMESTER EXAMINATION 2024/2025
+
+PTD 121: TECHNICAL DRAWING
+TIME: 2 HOURS
+
+1a. Construct octagon in square of side 40mm.
+1b. Construct pentagon and heptagon of side 50mm.
+1c. Draw freehand sketch of six laboratory equipment.
+
+2a. How many degrees in a circle, semi-circle, quadrant, right angle?
+2b. Define lettering, styles and types.`,
+
+        "STP 122": `THE POLYTECHNIC, IBADAN
+FACULTY OF SCIENCE
+DEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY
+
+SECOND SEMESTER EXAMINATION 2023/2024
+
+STP 122: OPTICS AND WAVES
+TIME: 2 HOURS
+
+ANSWER ANY FOUR QUESTIONS
+
+1a. List twelve eye defects.
+1b. Range 25cm-250cm. Find power of spectacles.
+
+2a. Differentiate between eye and camera.
+2b. Lens powers -2.50D and +1.0D. Identify defects.
+
+3a. List optical instruments.
+3b. Telescope: objective 80cm, eyepiece 4cm. Find magnification.`,
+
+        "EED 126": `THE POLYTECHNIC, IBADAN
+SECOND SEMESTER EXAMINATION 2023/2024
+
+EED 126: INTRODUCTION TO ENTREPRENEURSHIP
+
+MULTIPLE CHOICE QUESTIONS
+
+30. Challenges of self-employment except? (A) Broad responsibility (B) Time constraint (C) Uncertain future (D) Setting income
+31. Warehousing is under which entrepreneurship? (A) Service (B) Technology (C) Social (D) Manufacturing
+32. NERFUND means? (A) National Economic Reconstruction Funds (B) Nigeria Economic Reconstruction Fund
+33. Goal setting is a process for thinking about your ideal future. True/False`
+    };
+
+    let currentLevel = null;
+
+    function showLevel(level) {
+        currentLevel = level;
+        let courses = [];
+        if (level === 'ND1') {
+            courses = ['STB 121', 'STC 121', 'STC 122', 'STC 123', 'GLT 121', 'COM 123', 'PTD 121', 'STP 122', 'EED 126'];
+        } else {
+            courses = ['STC 222 (Coming Soon)', 'STB 221', 'GNS 113'];
+        }
+        
+        let html = '<div class="pq-buttons">';
+        courses.forEach(c => {
+            let code = c.split(' ')[0];
+            html += `<button class="pq-btn" onclick="showExam('${code}')">${c}</button>`;
+        });
+        html += '</div>';
+        document.getElementById('courseList').innerHTML = html;
+        
+        document.querySelectorAll('.pq-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    function showExam(code) {
+        let content = pastQuestions[code];
+        if (!content) {
+            content = `⚠️ COMING SOON ⚠️\n\nThe full past question paper for ${code} is being uploaded.\nPlease check back in 1-2 weeks.`;
+        }
+        let viewer = document.getElementById('examViewer');
+        viewer.innerHTML = `<div style="margin-bottom:15px"><strong>${code} PAST QUESTION PAPER</strong></div><div style="white-space:pre-wrap; font-family:'Courier New',monospace;">${content}</div>
+        <button class="download-btn" onclick="downloadExam('${code}')">📥 Download as Text</button>
+        <button class="download-btn" onclick="window.print()">🖨️ Print</button>`;
+        viewer.style.display = 'block';
+    }
+
+    function downloadExam(code) {
+        let content = pastQuestions[code] || "Content coming soon.";
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${code}_Past_Question.txt`;
+        a.click();
+        URL.revokeObjectURL(url);
+    }
+
+    // Display level buttons
+    document.getElementById('levelButtons').innerHTML = `
+        <button class="pq-btn" onclick="showLevel('ND1')">ND1</button>
+        <button class="pq-btn" onclick="showLevel('ND2')">ND2</button>
+    `;
+
+    // GP Calculator
+    let courses = [];
+    function updateGPA() {
+        let totalPoints = 0, totalCredits = 0;
+        courses.forEach(c => {
+            totalPoints += c.gp * c.credits;
+            totalCredits += c.credits;
+        });
+        let gpa = totalCredits ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+        document.getElementById('gpaResult').innerHTML = `GPA: ${gpa}`;
+        let gpaNum = parseFloat(gpa);
+        if (gpaNum >= 3.5) document.getElementById('classification').innerHTML = "Classification: Distinction";
+        else if (gpaNum >= 3.0) document.getElementById('classification').innerHTML = "Classification: Upper Credit";
+        else if (gpaNum >= 2.5) document.getElementById('classification').innerHTML = "Classification: Lower Credit";
+        else if (gpaNum >= 2.0) document.getElementById('classification').innerHTML = "Classification: Pass";
+        else document.getElementById('classification').innerHTML = "Classification: Fail";
+        
+        let listHtml = '';
+        courses.forEach((c, i) => {
+            listHtml += `<li style="background:#111; padding:10px; margin:5px 0; border-radius:10px;">${c.code} (${c.credits} credits) - Grade: ${c.gradeText}<button onclick="removeCourse(${i})" style="float:right; background:#333; border:none; padding:5px 12px; border-radius:20px; cursor:pointer;">Remove</button></li>`;
+        });
+        document.getElementById('coursesList').innerHTML = listHtml;
+    }
+    function removeCourse(i) { courses.splice(i,1); updateGPA(); }
+    document.getElementById('addCourseBtn').onclick = () => {
+        let code = document.getElementById('courseCode').value;
+        let credits = parseInt(document.getElementById('creditUnit').value);
+        let gp = parseFloat(document.getElementById('gradeSelect').value);
+        let gradeText = document.getElementById('gradeSelect').options[document.getElementById('gradeSelect').selectedIndex].text;
+        if (code && credits) {
+            courses.push({ code, credits, gp, gradeText });
+            updateGPA();
+            document.getElementById('courseCode').value = '';
+        }
+    };
+
+    // Prosper AI
+    document.getElementById('sendAiBtn').onclick = () => {
+        let input = document.getElementById('aiInput').value;
+        let chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<p><strong>You:</strong> ${input}</p>`;
+        let response = "💎 ";
+        let lower = input.toLowerCase();
+        if (lower.includes('/godmode')) response += "GODMODE: Detailed explanation follows. " + input.replace('/godmode','');
+        else if (lower.includes('/l99')) response += "L99: Advanced level beyond textbook. " + input.replace('/l99','');
+        else if (lower.includes('/ghostmode')) response += "GHOSTMODE: " + input.replace('/ghostmode','');
+        else if (lower.includes('mitosis')) response += "Mitosis produces two identical daughter cells. Stages: Prophase, Metaphase, Anaphase, Telophase.";
+        else if (lower.includes('gpa')) response += "Use the GP Calculator above. A=4.0, AB=3.5, B=3.25, BC=3.0, C=2.75, CD=2.5, D=2.25, DE=2.0, F=0.";
+        else response += "Ask me about SLT courses, lab techniques, past questions, or use /godmode for detailed answers.";
+        chatBox.innerHTML += `<p><strong>Prosper AI 💎:</strong> ${response}</p>`;
+        document.getElementById('aiInput').value = '';
+        chatBox.scrollTop = chatBox.scrollHeight;
+    };
+</script>
 </body>
 </html>
