@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Past Questions — SLT Underground</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .pq-breadcrumb { margin-bottom: 30px; font-size: 14px; color: #888; }
+        .pq-breadcrumb a { color: #E8650A; text-decoration: none; }
+        .pq-level-btn, .pq-semester-btn, .pq-year-btn, .pq-course-btn {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 10px 20px;
+            border-radius: 40px;
+            margin: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--off-white);
+        }
+        .pq-level-btn.active, .pq-semester-btn.active, .pq-year-btn.active {
+            background: #E8650A;
+            color: #080808;
+            border-color: #E8650A;
+        }
+        .pq-level-btn:hover, .pq-semester-btn:hover, .pq-year-btn:hover, .pq-course-btn:hover {
+            background: #E8650A;
+            color: #080808;
+        }
+        .pq-viewer {
+            background: #0a0a0a;
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid #E8650A;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        .pq-content {
+            white-space: pre-wrap;
+            font-family: 'Space Mono', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .search-box {
+            width: 100%;
+            padding: 14px 20px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 40px;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        .back-btn {
+            background: #333;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .download-btn {
+            background: #E8650A;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            color: #080808;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hamburger" id="hamburgerBtn">
+    <i class="fas fa-bars"></i>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<div class="side-menu" id="sideMenu">
+    <div class="menu-nav-item"><a class="menu-nav-link" href="index.html">Home</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="past-questions.html">Past Questions</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="report-books.html">ND2 Report Books</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="course-outline.html">Course Outline</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="notes.html">Notes</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="brochure.html">SLT Brochure</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="gp-calculator.html">GP Calculator</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="project-guide.html">Project & Seminar Guide</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="siwes.html">SIWES Resources</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="career.html">Career Hub</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="entrepreneurship.html">Entrepreneurship</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="calendar.html">Academic Calendar</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="prosper-ai.html">Prosper AI <span class="badge-new">NEW</span> 💎</a></div>
+    <div class="menu-nav-item"><a class="menu-nav-link" href="about.html">About Founder</a></div>
+    <div class="founder-card">
+        <i class="fas fa-user-astronaut" style="font-size: 36px; color:#E8650A;"></i>
+        <h4>Oyekanmi Prosperpeace</h4>
+        <p>Founder, SLT Underground</p>
+        <a href="https://oyekanmiprosperpeace.netlify.app" style="color:#E8650A;">Portfolio</a>
+    </div>
+</div>
+
+<div class="section bg-periodic">
+    <div class="container">
+        <h2 class="display-font">Past Questions Library</h2>
+        <p style="margin-bottom: 20px;">Browse past questions by level, semester, and year. Click any course to view the full exam paper.</p>
+
+        <!-- Search Bar -->
+        <input type="text" id="searchInput" class="search-box" placeholder="🔍 Search by course code or title... e.g., STB 121, Cell Biology">
+
+        <!-- Navigation Breadcrumb -->
+        <div class="pq-breadcrumb" id="breadcrumb">
+            <a href="#" onclick="resetNavigation(); return false;">All Past Questions</a>
+        </div>
+
+        <!-- Level Selection -->
+        <div id="levelContainer" style="margin-bottom: 30px;">
+            <h3>Select Level</h3>
+            <div id="levelButtons"></div>
+        </div>
+
+        <!-- Semester Selection (hidden initially) -->
+        <div id="semesterContainer" style="margin-bottom: 30px; display: none;">
+            <h3>Select Semester</h3>
+            <div id="semesterButtons"></div>
+        </div>
+
+        <!-- Year Selection (hidden initially) -->
+        <div id="yearContainer" style="margin-bottom: 30px; display: none;">
+            <h3>Select Year</h3>
+            <div id="yearButtons"></div>
+        </div>
+
+        <!-- Course Selection (hidden initially) -->
+        <div id="courseContainer" style="margin-bottom: 30px; display: none;">
+            <h3>Select Course</h3>
+            <div id="courseButtons"></div>
+        </div>
+
+        <!-- Reset Button -->
+        <button id="resetBtn" class="back-btn" style="display: none;" onclick="resetNavigation()">← Back to Levels</button>
+
+        <!-- Past Question Viewer -->
+        <div id="pqViewer" class="pq-viewer" style="display: none;">
+            <h3 id="pqTitle"></h3>
+            <div id="pqContent" class="pq-content"></div>
+            <button id="downloadTxtBtn" class="download-btn"><i class="fas fa-download"></i> Download as TXT</button>
+            <button id="closeViewerBtn" class="back-btn" onclick="document.getElementById('pqViewer').style.display='none'">Close</button>
+        </div>
+
+        <!-- Results Container -->
+        <div id="resultsContainer"></div>
+    </div>
+</div>
+
+<footer>
+    <p>SLT Underground — Built by Oyekanmi Prosperpeace Oluwajuwonlo — ND2 Class of 2026</p>
+    <p>Free forever. Share freely. 💎</p>
+    <a href="https://schooltry.polyibadan.edu.ng/student" style="color:#E8650A;">School Portal</a>
+</footer>
+
+<script>
+    // Past Questions Database - Complete from your images
+    const pastQuestionsDB = [
+        // ND1 SECOND SEMESTER 2023/2024 & 2024/2025
+        { level: "ND1", semester: "Second", year: "2023/2024", code: "STB 121", title: "Cell Biology", content: "THE POLYTECHNIC, IBADAN\nFACULTY OF SCIENCE\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATION 2023/2024\nCOURSE TITLE: CELL BIOLOGY\nCOURSE CODE: STB 121\nTIME: 2 HOURS\nINSTRUCTION: ANSWER ANY FOUR QUESTIONS\n\nSECTION A\n1a. Define cell\n1b. State the cell theory\n1c. State a function each of: Mitochondria, Golgi apparatus, Endoplasmic reticulum, Lysosome, Ribosome, Cell wall, Vacuole, Cell membrane, Cytoplasm, Nuclear membrane\n2a. Define Mitosis\n2b. With the aid of diagram explain the stages of mitosis\n2c. State three significance of Mitosis\n3a. Briefly describe the cytoplasm relating to its structure and components\n3b. State five functions of the Cytoplasm\n3c. State five functions of the Nucleus\n\nSECTION B\n4a. Differentiate between respiration and fermentation\n4b. Give four differences between aerobic and anaerobic respiration\n4c. State the significance of respiratory process\n5a. State four economic importance of fermentation\n5b. Explain the two essential stages of photosynthesis\n5c. Define Photosynthesis and list six macro elements required by green plants\n6. Define: Transpiration, Translocation, Growth\n6b. Highlight five steps of translocation in plants\n6c. State three significance of translocation\n6d. Mention five factors that affect the rate of transpiration" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "STC 121", title: "Organic Chemistry I", content: "THE POLYTECHNIC, IBADAN\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATION 2024/2025\nCOURSE CODE: STC 121\nCOURSE TITLE: ORGANIC CHEMISTRY I\nTIME: 2 HOURS\nINSTRUCTION: ANSWER FOUR QUESTIONS WITH AT LEAST TWO FROM EACH SECTION\n\nSECTION A\n1a. Define the following hydrocarbons: Isomerism, Functional Group\n1b. State two properties of Homologous Series\n1c. State four physical properties of Alkanes\n1d. Differentiate between Straight Chain and Branch Chain hydrocarbons with examples\n1e. Draw structures of: 2,4-dimethyl pentane, 1,3-dimethyl hexane, 1,4-dimethyl heptane\n2a. What is Homologous Series?\n2b. State the first three members of Alkenes\n2c. State four physical properties of Alkenes\n2d. Draw structure of: 3-ethyl-4,5-dimethyl-hept-1-yne\n2e. State four methods of preparation of Alkenes\n2f. Draw structures of: Cis-Oct-3-ene, Trans-2,3-dihydroxyl but-2-ene, Cis-1,2-dichloroethene, Trans-4-ethyl-3-methylhept-3-ene, Cis-3,4-dimethylOct-3-ene\n\nSECTION B\n4a. List three classes of Alcohol\n4b. Mention three main classes of Monohydric alcohol\n4c. Highlight and briefly describe any four properties of Alcohol\n5a. Give IUPAC names of: CH3OH, CH3CH2OH, CH3CH2CH2OH\n5b. Explain: Hydrolysis of Halogenoalkanes, Hydration of Alkene, Fermentation of Carbohydrates\n6a. Give structure of: Methanal, Ethanal, 2-methylbutanal, Benzaldehyde, 3-hydroxy propanal\n6b. Explain physical properties of Aldehyde\n6c. Write structure of: Pentan-3-one, Pentan-2-one, Phenyl ethanoate, Propanone, Butanoate" },
+        { level: "ND1", semester: "Second", year: "2023/2024", code: "STC 122", title: "Physical Chemistry", content: "THE POLYTECHNIC, IBADAN\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATION 2023/2024\nCOURSE CODE: STC 122\nCOURSE TITLE: PHYSICAL CHEMISTRY\nTIME: 2 HOURS\nINSTRUCTION: ANSWER ANY FOUR QUESTIONS\n\n1a. What is Activation Energy?\n1b. State factors that influence rate of reaction\n1c. Using data table for benzoyl peroxide decomposition, determine the rate equation\n\n2a. In rate of reaction with respect to concentration of A, explain zero, first, and second order\n2b. State the Arrhenius equation\n2c. For peroxide decomposition first order, determine activation energy from given temperature and rate constant data\n\n3a. Activation energy for hydroxide ion with bromoethane is 90.0 kJ/mol. How much faster will reaction proceed from 295K to 305K?" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "STC 122", title: "Physical Chemistry", content: "THE POLYTECHNIC, IBADAN\nSCIENCE LABORATORY TECHNOLOGY DEPARTMENT\nSECOND SEMESTER EXAMINATION 2024/2025\nCOURSE CODE: STC 122\nCOURSE TITLE: PHYSICAL CHEMISTRY\nTIME: 2 HOURS\nINSTRUCTION: ANSWER 4 QUESTIONS, 2 FROM EACH SECTION\n\nSECTION A\n1a. Define: Rate of Chemical reaction, Boiling point of a liquid, Vapour pressure of a liquid\n1b. Itemize six factors affecting Rate of chemical reaction\n1c. State Raoult's law mathematically\n2a. Define Electrolysis\n2b. State Faraday's First and Second Law of Electrolysis mathematically\n2c. Calculate mass of copper deposited using 3A for 2 hours\n2d. Calculate Avogadro constant given 0.05 moles electrons and charge 1.60x10^-19C\n3a. Discuss: Electrode, Electrolytic Cell\n3b. Itemize six uses of Electrode\n3c. State major types of Electrode and define each\n\nSECTION B\n4a. Activation energy 90.0 kJ/mol from 295K to 350K - how much faster?\n4b. Define catalyst, state and explain two types\n5a. What is activation energy?\n5b. What is Autocatalysis?\n6a. Explain zero, first, second order\n6b. State Arrhenius equation\n6c. Determine activation energy from given data" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "STC 123", title: "Analytical Chemistry", content: "THE POLYTECHNIC, IBADAN\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATIONS 2024/2025\nCOURSE CODE: STC 123\nCOURSE TITLE: ANALYTICAL CHEMISTRY\nTIME: 2.5 HOURS\nINSTRUCTION: ANSWER FIVE QUESTIONS, TWO FROM EACH SECTION\n\nSECTION A\n1a. Mention four differences between classical and instrumental methods\n1b. Define Qualitative and Quantitative Analyses\n1c. Define: Replicate samples, Specific and selective methods, Heterogenous sample, Sampling\n2a. List four inter-disciplinary areas of analytical chemistry\n2b. Prepare 500ml of 15% w/v aqueous glucose solution\n2c. Calculate volume of 1.50M H2SO4 to dilute to 0.75dm3 of 0.05M\n2d. List ways of decomposing organic compounds and instruments involved\n2e. Define concentration, mention four ways to express it\n3a. Calculate millimoles in 1.25L of 2.70x10^-3 KMnO4\n3b. Calculate millimoles in 255ml of 3.20ppm CuSO4\n3c. Discuss initial four steps of Quantitative analysis\n3d. Mention four laboratory accidents and prevention\n\nSECTION B\n4a. Explain: Accuracy vs Precision, Dry Ashing vs Wet Digestion\n4b. Mention four laboratory precautions\n4c. State four advantages of HPLC and six of GLC\n\nSECTION C\n5a. What is Electrophoresis?\n5b. Give two major types of electrophoresis\n5c. Highlight five characteristics of GLC\n6a. Define chromatography and Elution\n6b. Describe qualitative and quantitative analysis in chromatography\n6c. Mention four applications of HPLC" },
+        { level: "ND1", semester: "Second", year: "2023/2024", code: "GLT 121", title: "General Lab Techniques II", content: "THE POLYTECHNIC, IBADAN\nSCIENCE LABORATORY TECHNOLOGY DEPARTMENT\nSECOND SEMESTER EXAMINATION 2023/2024\nCOURSE CODE: GLT 121\nCOURSE TITLE: GENERAL LABORATORY TECHNIQUES II\nTIME: 2 HOURS\nINSTRUCTION: Answer Question One and any other three\n\nQuestion One\nYou are given a practical assignment to dry a plant for future use.\n(a) What is the first step to take?\n(b) What is the process of preservation called? Give definition\n(c) What are the tools needed for collection and their uses?\n(d) State five precautionary measures when pressing plant materials\n(e) How do you store herbarium?\n\nQuestion Two\n(a) What is preservation?\n(b) State three general steps for animal preservation\n(c) Describe four reasons for animal preservation\n(d) Explain use of formalin and its concentration\n\nQuestion Three\n(a) What is an aquarium?\n(b) Highlight five types of aquarium\n(c) State five importance of aquarium\n(d) Briefly explain filtration system for aquarium\n\nQuestion Four\n(a) What is a solvent?\n(b) Explain: Polarity, Standard solution, Saturated solution, Coning and Quartering, Chromatography, Halogenated solvents\n(c) Calculate molar concentration of 8.6g NaOH in 250cm3" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "GLT 121", title: "General Lab Techniques II", content: "THE POLYTECHNIC, IBADAN\nSCIENCE LABORATORY TECHNOLOGY DEPARTMENT\nSECOND SEMESTER EXAMINATION 2024/2025\nGLT 121: GENERAL LABORATORY TECHNIQUES II\nTIME: 2 HOURS\nINSTRUCTION: Answer FOUR questions, TWO from each section\n\nSECTION A\nQuestion One\n(a) Discuss safe storing of chemicals in laboratory\n(b) Highlight ways laboratory wastes can be managed\n(c) Mention with examples different types of laboratory wastes\n\nQuestion Two\n(a) Purity is soul of chemical reactions. Mention ten ways this could be achieved\n(b) Draw labelled schematic diagram of distillation\n(c) Define: Solvent, Standard solution, Extraction, Polarity, Sampling technique\n\nQuestion Three\n(a) Explain properties of ideal extraction solvents\n(b) State ten applications of solvents\n(c) Calculate grams of NaOH to prepare 500ml of 0.5M NaOH (Na=23, H=1, O=16)\n(d) Describe three components of chromatography\n\nSECTION B\nQuestion Four\n(a) What is preservation?\n(b) Explain wet preservation of animals\n(c) State reasons animal specimens are preserved\n\nQuestion Five\n(a) Define plant collection\n(b) Mention six steps for collecting plant specimens\n(c) Write shortly on planning of plant collection\n(d) Highlight five details to record in field notebook\n\nQuestion Six\nDiscuss chemical preservatives and their usage" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "COM 123", title: "Computer Packages I", content: "THE POLYTECHNIC, IBADAN\nDEPARTMENT OF COMPUTER STUDIES\nSECOND SEMESTER EXAMINATIONS 2024/2025\nCOURSE CODE: COM 123\nCOURSE TITLE: COMPUTER APPLICATION PACKAGES I\nTIME: 2 HOURS 30 MINUTES\nINSTRUCTION: ANSWER ANY FOUR QUESTIONS\n\nQUESTION ONE\n(a) What is Word Processing?\n(b) Explain any four features of Word Processing operations\n(c) State five advantages of word processor over manual typewriter\n(d) Give two examples of Word Processing packages\n\nQUESTION TWO\n(a) State three differences between System Software and Application Software\n(b) Mention five examples of System Software and three of Application Software\n(c) State four examples of database system\n(d) State three advantages of Application Software\n\nQUESTION THREE\n(a) List eight data types in Database\n(b) State four types of alignment and their shortcuts\n(c) List four types of documents you can create with Word processor\n(d) In tabular form, state differences between workbook and worksheet\n(e) List four users of Spreadsheet\n\nQUESTION FOUR\n(a) Define: Formula, Constant, Mathematical Operator, Cell, Spreadsheet\n(b) List six uses of Spreadsheet\n(c) Distinguish: Softcopy vs Hardcopy, Print vs Print Preview\n(d) What is file extension?\n(e) State applications for: .xls, .doc, .accdb, .ppt\n\nQUESTION FIVE\n(a) Student has 50 pages, prints range: 3,5,9-14,25-30,32,35-36,37-44,45-49. Calculate pages printed\n(b) Explain four differences between Spreadsheet and Database Application\n(c) Differentiate: Backspace vs Delete, Save vs Save As\n\nQUESTION SIX\n(a) Explain: Form, Query, Table, Report\n(b) Explain function of: Ctrl+O, Ctrl+N, Ctrl+V, Ctrl+X, Ctrl+P" },
+        { level: "ND1", semester: "Second", year: "2024/2025", code: "PTD 121", title: "Technical Drawing", content: "THE POLYTECHNIC, IBADAN\nMECHANICAL ENGINEERING DEPARTMENT\nSECOND SEMESTER EXAMINATION 2024/2025\nCOURSE TITLE: Technical Drawing\nCOURSE CODE: PTD 121\nTIME: 2 HOURS\nINSTRUCTION: Section A Compulsory and Any THREE from Section B\n\nSECTION A\n1a. Construct an octagon in a square of side 40mm\n1b. Construct a Pentagon, square and heptagon of side 50mm using general method\n1c. Draw free hand sketch of six laboratory equipments\n1d. Draw the block in Isometric projection as shown\n\nSECTION B\n2a. How many degrees in: a circle, semi-circle, quadrant, right angle?\n2b. Define lettering, list styles and types of lettering\n3a. Name other examples of circles in nature besides sun and flowers\n3b. Construct triangle ABC on base BC given AB=90mm, angle BAC=60°, draw circumcircle\n4a. Define Polygons and enumerate types\n4b. Name and draw types of lines with their uses\n5a. Draw FIVE types of quadrilateral\n5b. Construct angles: 22.5°, 75°, 87.5°, 60°, 120°, 45°\n6a. Define ellipse and mention types\n6b. Construct ellipse with major axis 50mm and minor axis 30mm using Auxiliary method" },
+        { level: "ND1", semester: "Second", year: "2023/2024", code: "STP 122", title: "Optics and Waves", content: "THE POLYTECHNIC, IBADAN\nFACULTY OF SCIENCE\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATION 2023/2024\nCOURSE TITLE: OPTICS AND WAVES\nCOURSE CODE: STP 122\nTIME: 2 HOURS\nINSTRUCTION: ANSWER ANY FOUR QUESTIONS\n\n1. (a) List twelve types of human eye defects\n   (b) Range of distinct vision 25cm to 250cm. Find power of spectacles to see distant clearly and closest distance with spectacles\n\n2. (a) Differentiate between human eye and camera\n   (b) Spectacles: right eye -2.50D, left eye +1.0D. Identify eye defects\n\n3. (a) List optical instruments\n   (b) Telescope with objective 80cm, eyepiece 4cm. Find angular magnification in normal adjustment and when image at 25cm from eyepiece\n\n4. (a) Explain intensity of sound\n   (b) Amplifier A 250W, B 45W. Express in dB how much more powerful A is than B\n\n5. (a) Source emits 40W uniformly. Find distance for sound level 90dB and intensity at 100m\n\n6. (a) Explain Luminous Intensity, Luminance, Illuminance with examples\n   (b) Differentiate: Reflection vs Refraction, Superposition vs Interference\n   (c) Define Resonance with familiar example\n\n7. (a) Explain Diffraction and Interference in sound waves\n\n8. (a) 60° prism with refractive index 1.60. Find angle of incidence for minimum deviation" },
+        { level: "ND1", semester: "Second", year: "2023/2024", code: "EED 126", title: "Entrepreneurship I", content: "THE POLYTECHNIC, IBADAN\nSECOND SEMESTER EXAMINATION 2023/2024\nEED 126: INTRODUCTION TO ENTREPRENEURSHIP\n\nMULTIPLE CHOICE QUESTIONS\n\n30. Challenges of self-employment are the following except: (A) Broad responsibility (B) Time constraint (C) Uncertain future (D) Setting income (E) None\n31. Warehousing can be categorized under which entrepreneurship: (A) Service (B) Technology (C) Social (D) Manufacturing (E) All\n32. Features of Business types of enterprise except: (A) Profits primary motive (B) Products must be demanded (C) Sold in market (D) Products people may want (E) All\n33. Year Indian government introduced market reforms: (A) 1992 (B) 1991 (C) 1993 (D) 1990 (E) 1994\n34. Package of incentives except: (A) Fiscal measures (B) Import tariff protection (C) Export promotion (D) Development banking (E) All\n35. NERFUND means: (A) National Economic Reconstruction Funds (B) National Economic Regulation Fund (C) National Economic Relocation Fund (D) Nigeria Economic Reconstruction Fund (E) Nigeria Economic Regulation Fund\n36. _______ is powerful process for thinking about ideal future: (A) Goal decision (B) Goal setting (C) Setting business (D) Goal choosing (E) Realistic setting\n37. Classes of Entrepreneurship except: (A) Business entrepreneurs (B) Social entrepreneurs (C) Entrepreneurs (D) Techno-entrepreneurs (E) All\n38. _______ means expansion in real terms of national income per head: (A) Economic growth (B) Business growth (C) Business development (D) Economic rate (E) Economic real\n39. Types of Entrepreneur except: (A) Opportunist (B) Inventors (C) Techno-preneurs (D) Self-employer (E) Acquirer\n40. Strength of demand measures how _______ product has been: (A) Good (B) Successful (C) Plenty (D) Constant (E) Services" },
+        
+        // ND2 FIRST SEMESTER
+        { level: "ND2", semester: "First", year: "2025/2026", code: "STM 211", title: "Microbiology", content: "DEPARTMENT OF SCIENCE AND TECHNOLOGY\nFIRST SEMESTER EXAMINATION 2025/2026\nCOURSE CODE: STM 211\nCOURSE NAME: MICROBIOLOGY\nTIME: 2 HOURS\n\n1. What is Microbiology? List five microorganisms found in environment with examples of use\n2. (a) Give two examples of bacteria\n   (b) Describe: Culture medium, Antibiotics, Autoclaving, Microorganisms, Sterilization, Disinfection\n3. (a) Define: Antiseptic, Antifungal, Antiviral, Antimicrobial\n4. (a) State three reasons for cultivation of microorganisms\n   (b) Outline advantages of pure culture over mixed culture\n5. (a) State three reasons why culture medium should be sterilized\n   (b) Describe sterilization methods for culture media\n6. (a) Describe difference between pure culture and mixed culture\n   (b) Role of culture media in microbiology" },
+        
+        // ND2 SECOND SEMESTER
+        { level: "ND2", semester: "Second", year: "2023/2024", code: "STC 222", title: "Biochemistry", content: "Coming soon — mentor uploading. Check back for Biochemistry past question paper." },
+        { level: "ND2", semester: "Second", year: "Continuing Education", code: "STB 221", title: "Genetics", content: "DEPARTMENT OF SCIENCE & LABORATORY TECHNOLOGY\nSTB 221 GENETICS\n\n1. Complete ABO Blood System table (Blood group A, B, O, AB with antigens)\n2a. Define Paternity Testing\n2b. State five reasons for paternity testing\n3a. List four factors causing mutation\n4a. State and explain X chromosome abnormalities\n4b. Mention three syndromes with examples\n4c. Mention two examples of autosomal recessive disorders\n4d. Mention two examples of autosomal dominant disorders\n4e. Mention two examples of sex-linked disorders\n4f. Mention two examples of chromosomal abnormalities" },
+        { level: "ND2", semester: "Second", year: "2023/2024", code: "GNS 113", title: "Industrial Management", content: "DEPARTMENT OF SOCIAL SCIENCES\nGNS 113: INDUSTRIAL MANAGEMENT\nTIME: 2 HOURS\n\n1. Explain any classical theory of management\n1b. Give reasons for firms and industry industrialization in Nigeria\n2. Differentiate between informal and formal enterprise\n3a. Examine positive and negative effects of knowledge\n3b. Mention different types of industries\n4. Discuss strategies of industrialization\n5. What is localization of industry?\n5a. Define: Metal money, Partnership, Credit and thrift cooperative society, Public corporation, Private limited liability company" }
+    ];
+
+    let currentLevel = null;
+    let currentSemester = null;
+    let currentYear = null;
+
+    function getUniqueLevels() { return [...new Set(pastQuestionsDB.map(p => p.level))]; }
+    function getSemesters(level) { return [...new Set(pastQuestionsDB.filter(p => p.level === level).map(p => p.semester))]; }
+    function getYears(level, semester) { return [...new Set(pastQuestionsDB.filter(p => p.level === level && p.semester === semester).map(p => p.year))]; }
+    function getCourses(level, semester, year) { return pastQuestionsDB.filter(p => p.level === level && p.semester === semester && p.year === year); }
+
+    function renderLevels() {
+        let levels = getUniqueLevels();
+        let html = '';
+        levels.forEach(level => {
+            html += `<button class="pq-level-btn" onclick="selectLevel('${level}')">${level}</button>`;
+        });
+        document.getElementById('levelButtons').innerHTML = html;
+    }
+
+    function selectLevel(level) {
+        currentLevel = level;
+        currentSemester = null;
+        currentYear = null;
+        document.getElementById('levelContainer').style.display = 'block';
+        document.getElementById('semesterContainer').style.display = 'block';
+        document.getElementById('yearContainer').style.display = 'none';
+        document.getElementById('courseContainer').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'inline-block';
+        document.getElementById('pqViewer').style.display = 'none';
+        
+        let semesters = getSemesters(level);
+        let semHtml = '';
+        semesters.forEach(sem => {
+            semHtml += `<button class="pq-semester-btn" onclick="selectSemester('${sem}')">${sem} Semester</button>`;
+        });
+        document.getElementById('semesterButtons').innerHTML = semHtml;
+        document.getElementById('breadcrumb').innerHTML = `<a href="#" onclick="resetNavigation()">All Past Questions</a> / ${level}`;
+    }
+
+    function selectSemester(semester) {
+        currentSemester = semester;
+        currentYear = null;
+        let years = getYears(currentLevel, semester);
+        let yearHtml = '';
+        years.forEach(year => {
+            yearHtml += `<button class="pq-year-btn" onclick="selectYear('${year}')">${year}</button>`;
+        });
+        document.getElementById('yearButtons').innerHTML = yearHtml;
+        document.getElementById('yearContainer').style.display = 'block';
+        document.getElementById('courseContainer').style.display = 'none';
+        document.getElementById('breadcrumb').innerHTML = `<a href="#" onclick="resetNavigation()">All Past Questions</a> / ${currentLevel} / ${semester} Semester`;
+    }
+
+    function selectYear(year) {
+        currentYear = year;
+        let courses = getCourses(currentLevel, currentSemester, year);
+        let courseHtml = '';
+        courses.forEach(course => {
+            courseHtml += `<button class="pq-course-btn" onclick="showPastQuestion('${course.code}')">${course.code} - ${course.title}</button>`;
+        });
+        document.getElementById('courseButtons').innerHTML = courseHtml;
+        document.getElementById('courseContainer').style.display = 'block';
+        document.getElementById('breadcrumb').innerHTML = `<a href="#" onclick="resetNavigation()">All Past Questions</a> / ${currentLevel} / ${currentSemester} Semester / ${currentYear}`;
+    }
+
+    function showPastQuestion(code) {
+        let pq = pastQuestionsDB.find(p => p.code === code && p.level === currentLevel && p.semester === currentSemester && p.year === currentYear);
+        if (pq) {
+            document.getElementById('pqTitle').innerHTML = `${pq.code} - ${pq.title} (${pq.level} ${pq.semester} Semester ${pq.year})`;
+            document.getElementById('pqContent').innerText = pq.content;
+            document.getElementById('pqViewer').style.display = 'block';
+            
+            document.getElementById('downloadTxtBtn').onclick = () => {
+                const blob = new Blob([pq.content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${pq.code}_${pq.title}_${pq.year}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            };
+        }
+    }
+
+    function resetNavigation() {
+        currentLevel = null;
+        currentSemester = null;
+        currentYear = null;
+        document.getElementById('semesterContainer').style.display = 'none';
+        document.getElementById('yearContainer').style.display = 'none';
+        document.getElementById('courseContainer').style.display = 'none';
+        document.getElementById('pqViewer').style.display = 'none';
+        document.getElementById('resetBtn').style.display = 'none';
+        document.getElementById('breadcrumb').innerHTML = `<a href="#" onclick="resetNavigation()">All Past Questions</a>`;
+        renderLevels();
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', (e) =>
