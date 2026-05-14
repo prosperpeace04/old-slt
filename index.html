@@ -7,12 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --burnt-orange: #E8650A;
             --deep-black: #080808;
@@ -20,303 +15,86 @@
             --card-bg: #111111;
             --border-dim: #222222;
         }
-
-        body {
-            background-color: var(--deep-black);
-            color: var(--off-white);
-            font-family: 'DM Sans', sans-serif;
-            line-height: 1.5;
-            overflow-x: hidden;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #111;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--burnt-orange);
-            border-radius: 4px;
-        }
-
-        h1, h2, h3, .display-font {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-        }
-
-        .mono {
-            font-family: 'Space Mono', monospace;
-        }
-
-        .bg-dna {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100' opacity='0.08'%3E%3Cpath fill='none' stroke='%23E8650A' stroke-width='1.5' d='M30,20 L170,80 M30,40 L170,100 M30,60 L170,20 M30,80 L170,40'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 120px;
-        }
-
-        .bg-lab {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.06'%3E%3Ccircle cx='20' cy='30' r='8' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3Crect x='50' y='20' width='12' height='30' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3Cpath d='M70,60 L80,45 L90,60 Z' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            background-size: 60px;
-        }
-
-        .bg-periodic {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100' opacity='0.05'%3E%3Ctext x='10' y='20' fill='%23E8650A' font-size='12' font-family='monospace'%3EH%3C/text%3E%3Ctext x='80' y='50' fill='%23E8650A' font-size='14'%3EC%3C/text%3E%3Ctext x='150' y='80' fill='%23E8650A' font-size='10'%3EO%3C/text%3E%3Ctext x='40' y='90' fill='%23E8650A' font-size='12'%3ENa%3C/text%3E%3C/svg%3E");
-            background-repeat: repeat;
-        }
-
-        .bg-molecular {
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.07'%3E%3Ccircle cx='30' cy='30' r='3' fill='%23E8650A'/%3E%3Ccircle cx='70' cy='50' r='3' fill='%23E8650A'/%3E%3Cline x1='33' y1='30' x2='67' y2='50' stroke='%23E8650A' stroke-width='1'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-        }
-
-        .hero-gradient {
-            background: linear-gradient(145deg, #E8650A 0%, #B84C00 35%, #080808 80%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .wave-divider {
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            line-height: 0;
-        }
-
-        .wave-divider svg {
-            width: 100%;
-            height: 70px;
-        }
-
-        .hamburger {
-            position: fixed;
-            top: 24px;
-            left: 24px;
-            z-index: 1001;
-            cursor: pointer;
-            background: rgba(8,8,8,0.8);
-            backdrop-filter: blur(8px);
-            padding: 12px 14px;
-            border-radius: 40px;
-            border: 1px solid var(--burnt-orange);
-            transition: all 0.2s;
-        }
-        .hamburger:hover {
-            background: var(--burnt-orange);
-        }
-        .hamburger i {
-            font-size: 24px;
-            color: var(--off-white);
-        }
-
-        .side-menu {
-            position: fixed;
-            top: 0;
-            left: -100%;
-            width: min(85%, 360px);
-            height: 100vh;
-            background: #0A0A0A;
-            z-index: 1002;
-            transition: left 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            overflow-y: auto;
-            border-right: 1px solid var(--burnt-orange);
-            padding: 80px 24px 30px;
-            box-shadow: 8px 0 30px rgba(0,0,0,0.8);
-        }
-        .side-menu.open {
-            left: 0;
-        }
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.75);
-            z-index: 1001;
-            display: none;
-        }
-        .menu-overlay.active {
-            display: block;
-        }
-        .menu-nav-item {
-            margin-bottom: 8px;
-        }
-        .menu-nav-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 8px;
-            color: var(--off-white);
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid #222;
-            transition: all 0.2s;
-        }
-        .menu-nav-link:hover {
-            color: var(--burnt-orange);
-            padding-left: 16px;
-        }
-        .sub-menu {
-            padding-left: 20px;
-            display: none;
-        }
-        .sub-menu.show {
-            display: block;
-        }
-        .sub-menu a {
-            display: block;
-            padding: 8px 8px;
-            color: #aaa;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-        .founder-card {
-            margin-top: 40px;
-            padding: 20px;
-            background: #111;
-            border-radius: 24px;
-            text-align: center;
-            border: 1px solid var(--burnt-orange);
-        }
-        .badge-new {
-            background: var(--burnt-orange);
-            font-size: 10px;
-            padding: 2px 8px;
-            border-radius: 20px;
-            font-weight: bold;
-        }
-
-        .section {
-            padding: 80px 24px;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .btn-orange {
-            background: var(--burnt-orange);
-            border: none;
-            padding: 12px 28px;
-            border-radius: 40px;
-            font-weight: 600;
-            color: #080808;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 24px;
-            border: 1px solid var(--border-dim);
-            transition: transform 0.2s;
-        }
-        .grid-2, .grid-3 {
-            display: grid;
-            gap: 24px;
-        }
-        @media (min-width: 768px) {
-            .grid-2 { grid-template-columns: repeat(2,1fr); }
-            .grid-3 { grid-template-columns: repeat(3,1fr); }
-        }
-
-        .grade-select {
-            background: #1a1a1a;
-            border: 1px solid #333;
-            padding: 10px;
-            border-radius: 12px;
-            color: var(--off-white);
-        }
-        .result-box {
-            background: #000;
-            padding: 20px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .ai-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-        }
-        .ai-modal.active {
-            display: flex;
-        }
-        .ai-container {
-            width: 90%;
-            max-width: 600px;
-            background: #0f0f0f;
-            border-radius: 32px;
-            border: 1px solid var(--burnt-orange);
-            overflow: hidden;
-        }
-        .ai-header {
-            background: var(--burnt-orange);
-            padding: 16px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .ai-msgs {
-            height: 400px;
-            overflow-y: auto;
-            padding: 20px;
-        }
-        .ai-input-area {
-            display: flex;
-            border-top: 1px solid #222;
-        }
-        .ai-input {
-            flex: 1;
-            background: #1a1a1a;
-            border: none;
-            padding: 16px;
-            color: white;
-        }
-        .mode-badge {
-            font-size: 11px;
-            background: #222;
-            padding: 4px 8px;
-            border-radius: 20px;
-        }
-
-        footer {
-            padding: 40px 24px;
-            text-align: center;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        @media (max-width: 640px) {
-            .section { padding: 60px 20px; }
-        }
+        body { background-color: var(--deep-black); color: var(--off-white); font-family: 'DM Sans', sans-serif; line-height: 1.5; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: var(--burnt-orange); border-radius: 4px; }
+        h1, h2, h3, .display-font { font-family: 'Syne', sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+        
+        /* Backgrounds */
+        .bg-dna { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100' opacity='0.08'%3E%3Cpath fill='none' stroke='%23E8650A' stroke-width='1.5' d='M30,20 L170,80 M30,40 L170,100 M30,60 L170,20 M30,80 L170,40'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 120px; }
+        .bg-lab { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.06'%3E%3Ccircle cx='20' cy='30' r='8' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3Crect x='50' y='20' width='12' height='30' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3Cpath d='M70,60 L80,45 L90,60 Z' fill='none' stroke='%23E8650A' stroke-width='1'/%3E%3C/svg%3E"); background-repeat: repeat; background-size: 60px; }
+        .bg-periodic { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100' opacity='0.05'%3E%3Ctext x='10' y='20' fill='%23E8650A' font-size='12'%3EH%3C/text%3E%3Ctext x='80' y='50' fill='%23E8650A' font-size='14'%3EC%3C/text%3E%3Ctext x='150' y='80' fill='%23E8650A' font-size='10'%3EO%3C/text%3E%3C/svg%3E"); background-repeat: repeat; }
+        .bg-molecular { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' opacity='0.07'%3E%3Ccircle cx='30' cy='30' r='3' fill='%23E8650A'/%3E%3Ccircle cx='70' cy='50' r='3' fill='%23E8650A'/%3E%3Cline x1='33' y1='30' x2='67' y2='50' stroke='%23E8650A' stroke-width='1'/%3E%3C/svg%3E"); background-repeat: repeat; }
+        
+        .hero-gradient { background: linear-gradient(145deg, #E8650A 0%, #B84C00 35%, #080808 80%); position: relative; overflow: hidden; }
+        .wave-divider { position: absolute; bottom: -2px; left: 0; width: 100%; line-height: 0; }
+        .wave-divider svg { width: 100%; height: 70px; }
+        
+        .hamburger { position: fixed; top: 24px; left: 24px; z-index: 1001; cursor: pointer; background: rgba(8,8,8,0.8); backdrop-filter: blur(8px); padding: 12px 14px; border-radius: 40px; border: 1px solid var(--burnt-orange); transition: all 0.2s; }
+        .hamburger:hover { background: var(--burnt-orange); }
+        .hamburger i { font-size: 24px; color: var(--off-white); }
+        
+        .side-menu { position: fixed; top: 0; left: -100%; width: min(85%, 360px); height: 100vh; background: #0A0A0A; z-index: 1002; transition: left 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1); overflow-y: auto; border-right: 1px solid var(--burnt-orange); padding: 80px 24px 30px; box-shadow: 8px 0 30px rgba(0,0,0,0.8); }
+        .side-menu.open { left: 0; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); z-index: 1001; display: none; }
+        .menu-overlay.active { display: block; }
+        .menu-nav-item { margin-bottom: 8px; }
+        .menu-nav-link { display: flex; justify-content: space-between; align-items: center; padding: 12px 8px; color: var(--off-white); text-decoration: none; font-weight: 500; border-bottom: 1px solid #222; transition: all 0.2s; }
+        .menu-nav-link:hover { color: var(--burnt-orange); padding-left: 16px; }
+        .sub-menu { padding-left: 20px; display: none; }
+        .sub-menu.show { display: block; }
+        .sub-menu a { display: block; padding: 8px 8px; color: #aaa; text-decoration: none; font-size: 0.9rem; }
+        .founder-card { margin-top: 40px; padding: 20px; background: #111; border-radius: 24px; text-align: center; border: 1px solid var(--burnt-orange); }
+        .badge-new { background: var(--burnt-orange); font-size: 10px; padding: 2px 8px; border-radius: 20px; font-weight: bold; }
+        
+        .section { padding: 80px 24px; border-bottom: 1px solid #1a1a1a; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .btn-orange { background: var(--burnt-orange); border: none; padding: 12px 28px; border-radius: 40px; font-weight: 600; color: #080808; cursor: pointer; transition: 0.2s; }
+        .card { background: var(--card-bg); border-radius: 24px; padding: 24px; border: 1px solid var(--border-dim); transition: transform 0.2s; }
+        .grid-2, .grid-3 { display: grid; gap: 24px; }
+        @media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2,1fr); } .grid-3 { grid-template-columns: repeat(3,1fr); } }
+        
+        .grade-select { background: #1a1a1a; border: 1px solid #333; padding: 10px; border-radius: 12px; color: var(--off-white); width: 100%; }
+        .result-box { background: #000; padding: 20px; border-radius: 20px; text-align: center; margin-top: 20px; }
+        
+        .ai-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; justify-content: center; align-items: center; }
+        .ai-modal.active { display: flex; }
+        .ai-container { width: 90%; max-width: 600px; background: #0f0f0f; border-radius: 32px; border: 1px solid var(--burnt-orange); overflow: hidden; }
+        .ai-header { background: var(--burnt-orange); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .ai-msgs { height: 400px; overflow-y: auto; padding: 20px; }
+        .ai-input-area { display: flex; border-top: 1px solid #222; }
+        .ai-input { flex: 1; background: #1a1a1a; border: none; padding: 16px; color: white; }
+        .mode-badge { font-size: 11px; background: #222; padding: 4px 8px; border-radius: 20px; }
+        
+        .pq-viewer { background: #0a0a0a; border-radius: 16px; padding: 24px; margin-top: 20px; border: 1px solid #333; max-height: 500px; overflow-y: auto; }
+        .pq-content { white-space: pre-wrap; font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.6; }
+        .search-box { width: 100%; padding: 14px; background: #1a1a1a; border: 1px solid #333; border-radius: 40px; color: white; margin-bottom: 30px; }
+        
+        footer { padding: 40px 24px; text-align: center; font-size: 0.85rem; color: #666; }
+        @media (max-width: 640px) { .section { padding: 60px 20px; } }
+        
+        .dark-toggle { position: fixed; bottom: 24px; right: 24px; background: #1a1a1a; padding: 12px; border-radius: 40px; cursor: pointer; z-index: 99; border: 1px solid var(--burnt-orange); }
+        .light-mode { background: #f5f5f0; color: #111; }
+        .light-mode .card { background: #fff; border-color: #ddd; }
+        .light-mode .side-menu { background: #f0f0e8; }
+        .light-mode .menu-nav-link { color: #111; }
+        .light-mode .result-box { background: #e0e0e0; color: #111; }
     </style>
 </head>
 <body>
 
-<div class="hamburger" id="hamburgerBtn">
-    <i class="fas fa-bars"></i>
-</div>
+<div class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></div>
 <div class="menu-overlay" id="menuOverlay"></div>
+<div class="dark-toggle" id="darkToggle"><i class="fas fa-moon"></i></div>
 
 <div class="side-menu" id="sideMenu">
     <div class="menu-nav-item"><a class="menu-nav-link" href="#" data-section="home">Home</a></div>
-    <div class="menu-nav-item">
-        <div class="menu-nav-link" data-toggle="sub-report">ND2 Report Books <i class="fas fa-chevron-down"></i></div>
+    <div class="menu-nav-item"><div class="menu-nav-link" data-toggle="sub-report">ND2 Report Books <i class="fas fa-chevron-down"></i></div>
         <div class="sub-menu" id="sub-report"><a href="#" data-section="biochem">Biochemistry (STC 222)</a><a href="#" data-section="genetics">Genetics (STB 221)</a><a href="#" data-section="ecology">Ecology (STB 222)</a><a href="#" data-section="stp221">STP 221 Maintenance</a><a href="#" data-section="glt222">GLT 222 Glass Blowing</a></div>
     </div>
-    <div class="menu-nav-item">
-        <div class="menu-nav-link" data-toggle="sub-outline">Course Outline <i class="fas fa-chevron-down"></i></div>
+    <div class="menu-nav-item"><div class="menu-nav-link" data-toggle="sub-outline">Course Outline <i class="fas fa-chevron-down"></i></div>
         <div class="sub-menu" id="sub-outline"><a href="#" data-section="outline-nd1-1">ND1 First Sem</a><a href="#" data-section="outline-nd1-2">ND1 Second Sem</a><a href="#" data-section="outline-nd2-1">ND2 First Sem</a><a href="#" data-section="outline-nd2-2">ND2 Second Sem</a></div>
     </div>
     <div class="menu-nav-item"><a class="menu-nav-link" href="#" data-section="pastquestions">Past Questions</a></div>
@@ -333,7 +111,7 @@
     <div class="founder-card"><i class="fas fa-user-astronaut" style="font-size: 36px; color:#E8650A;"></i><h4>Oyekanmi Prosperpeace</h4><p>Founder, SLT Underground</p><a href="https://oyekanmiprosperpeace.netlify.app" style="color:#E8650A;">Portfolio</a></div>
 </div>
 
-<section id="home" class="hero-gradient" style="position:relative; min-height: 80vh; display: flex; align-items: center; justify-content: center; text-align: center;">
+<section id="home" class="hero-gradient" style="position:relative; min-height: 70vh; display: flex; align-items: center; justify-content: center; text-align: center;">
     <div class="bg-dna" style="position:absolute; inset:0; opacity:0.3;"></div>
     <div class="container" style="position:relative; z-index:2; padding: 100px 24px;">
         <h1 style="font-size: clamp(2.8rem, 8vw, 5rem);">SLT UNDERGROUND</h1>
@@ -344,72 +122,57 @@
 </section>
 
 <main>
-    <div id="biochem" class="section bg-lab"><div class="container"><h2 class="display-font">Biochemistry Report Book (STC 222)</h2><p>7 Complete Experiments by Mysterious Rey</p><div id="biochemList"></div></div></div>
-    <div id="genetics" class="section"><div class="container"><h2>Genetics (STB 221)</h2><div id="geneticsList"></div></div></div>
-    <div id="ecology" class="section bg-lab"><div class="container"><h2>Ecology (STB 222)</h2><div id="ecologyList"></div></div></div>
-    <div id="stp221" class="section"><div class="container"><h2>STP 221 Maintenance & Repair</h2><div id="stp221List"></div></div></div>
-    <div id="glt222" class="section"><div class="container"><h2>GLT 222 Glass Blowing</h2><div id="glt222List"></div></div></div>
+    <!-- Report Books Sections -->
+    <div id="biochem" class="section bg-lab"><div class="container"><h2 class="display-font">Biochemistry Report Book (STC 222)</h2><p>7 Complete Experiments</p><div id="biochemList" class="grid-2"></div></div></div>
+    <div id="genetics" class="section"><div class="container"><h2>Genetics (STB 221)</h2><div id="geneticsList" class="grid-2"></div></div></div>
+    <div id="ecology" class="section bg-lab"><div class="container"><h2>Ecology (STB 222)</h2><div id="ecologyList" class="grid-2"></div></div></div>
+    <div id="stp221" class="section"><div class="container"><h2>STP 221 Maintenance & Repair</h2><div id="stp221List" class="grid-2"></div></div></div>
+    <div id="glt222" class="section"><div class="container"><h2>GLT 222 Glass Blowing</h2><div id="glt222List" class="grid-2"></div></div></div>
 
-    <div id="outline-nd1-1" class="section"><div class="container"><h2>ND1 First Semester Course Outline</h2><ul><li>STB 111 Plant & Animal Taxonomy</li><li>STB 112 Morphology & Physiology</li><li>STC 111 General Principles of Chemistry</li><li>STC 112 Inorganic Chemistry I</li><li>STP 111 Mechanics</li><li>STP 112 Heat Energy</li><li>STP 113 Electronic Logic</li><li>GLT 111 General Lab Techniques I</li><li>MTH 113 Algebra for Science</li><li>GNS 101 English I</li><li>GNS 111 Citizenship I</li></ul></div></div>
-    <div id="outline-nd1-2" class="section"><div class="container"><h2>ND1 Second Semester</h2><ul><li>STB 121 Cell Biology</li><li>STC 121 Organic Chemistry I</li><li>STC 122 Physical Chemistry</li><li>STC 123 Analytical Chemistry</li><li>STP 121 Electrical and Magnetism</li><li>STP 122 Optics and Waves</li><li>GLT 121 GLT II</li><li>COM 123 Computer Packages I</li><li>GNS 102 Communication English</li><li>PTD 121 Technical Drawing</li><li>EED 126 Entrepreneurship I</li></ul></div></div>
-    <div id="outline-nd2-1" class="section"><div class="container"><h2>ND2 First Semester</h2><ul><li>STB 211 Pest Control</li><li>STB 212 Pathology</li><li>STM 211 Microbiology</li><li>STC 211 Inorganic II</li><li>STC 212 Instrumental Analysis</li><li>STP 211 Electronics</li><li>STP 213 Thermodynamics</li><li>MTH 213 Calculus</li><li>COM 215 Computer Packages II</li><li>GNS 201 English II</li><li>SLT 211 Research Methodology</li></ul></div></div>
-    <div id="outline-nd2-2" class="section"><div class="container"><h2>ND2 Second Semester</h2><ul><li>STC 221 Organic II</li><li>STC 222 Biochemistry</li><li>STB 221 Genetics</li><li>STB 222 Ecology</li><li>GLT 222 GLT III</li><li>STP 221 Thermodynamics II/Maintenance</li><li>EED 226 Entrepreneurship II</li><li>GNS 113 Industrial Management</li><li>GNS 202 Communication English II</li><li>SLT 212 Seminar</li><li>SLT 222 Project</li></ul></div></div>
+    <!-- Course Outlines -->
+    <div id="outline-nd1-1" class="section"><div class="container"><h2>ND1 First Semester - Topics Based on Past Questions</h2><ul><li>STB 111: Plant taxonomy, animal classification, binomial nomenclature</li><li>STB 112: Cell morphology, physiology of living organisms</li><li>STC 111: General chemistry principles, atomic structure</li><li>STC 112: Inorganic chemistry, periodic table, group properties</li><li>STP 111: Mechanics, motion, forces, energy</li><li>STP 112: Heat energy, temperature, thermodynamics</li><li>STP 113: Electronic logic, basic circuits</li><li>GLT 111: Lab safety, equipment handling, basic techniques</li><li>MTH 113: Algebra, equations, logarithms</li><li>GNS 101: English composition, grammar</li><li>GNS 111: Citizenship, Nigerian constitution, federalism</li></ul></div></div>
+    <div id="outline-nd1-2" class="section"><div class="container"><h2>ND1 Second Semester - Topics Based on Past Questions</h2><ul><li>STB 121: Cell structure, mitosis, organelles, photosynthesis, respiration</li><li>STC 121: Organic chemistry, alcohols, alkanes, alkenes, isomerism</li><li>STC 122: Physical chemistry, reaction rates, electrolysis, thermodynamics</li><li>STC 123: Analytical chemistry, qualitative/quantitative analysis, chromatography</li><li>STP 121: Electricity, magnetism, circuits, electromagnetism</li><li>STP 122: Optics, waves, sound, light, telescopes, microscopes</li><li>GLT 121: Lab techniques, distillation, extraction, preservation</li><li>COM 123: Word processing, spreadsheets, databases, Excel, PowerPoint</li><li>PTD 121: Technical drawing, geometric construction, isometric projection</li><li>EED 126: Entrepreneurship, business opportunities, budgeting, enterprise</li></ul></div></div>
+    <div id="outline-nd2-1" class="section"><div class="container"><h2>ND2 First Semester - Topics Based on Past Questions</h2><ul><li>STB 211: Pest control, IPM, resistant varieties, biological control</li><li>STB 212: Pathology, disease mechanisms, pathogenesis, immunology</li><li>STM 211: Microbiology, sterilization, culture media, microorganisms</li><li>STC 211: Inorganic chemistry II, transition metals, coordination compounds</li><li>STC 212: Instrumental analysis, spectrophotometry, HPLC, GC, NMR</li><li>STP 211: Electronics, semiconductors, diodes, transistors, valves</li><li>STP 213: Thermodynamics, heat engines, entropy, laws of thermodynamics</li><li>SLT 211: Research methodology, statistics, research design, sampling</li></ul></div></div>
+    <div id="outline-nd2-2" class="section"><div class="container"><h2>ND2 Second Semester - Topics Based on Past Questions</h2><ul><li>STC 222: Biochemistry, carbohydrates, proteins, enzymes, sugars, glucose estimation</li><li>STB 221: Genetics, mitosis, meiosis, dominance, inheritance, variation</li><li>STB 222: Ecology, soil properties, population studies, quadrat, transect</li><li>GLT 222: Glass blowing, cutting, drilling, grinding glass</li><li>STP 221: Equipment maintenance, tools, resistor combinations, component testing</li><li>GNS 113: Industrial management, management theories, enterprise types</li></ul></div></div>
 
-    <div id="pastquestions" class="section bg-periodic"><div class="container"><h2>Past Questions Library</h2><p>Select a course to download PDF. Real past questions ready from handover.</p><div class="grid-2"><div class="card">ND1 First Semester 2024/2025: STB 111, STB112, STC111, STP111, MTH113 <button class="btn-orange" style="margin-top:10px;">Download Bundle</button></div><div class="card">ND2 First Semester 2025/2026: STB 211, STM211, STC212, STP211, SLT211 <button class="btn-orange">Download Bundle</button></div><div class="card">ND2 Second Semester (Biochemistry 2023/2024) <button class="btn-orange">Get PDF</button></div><div class="card">More coming: Ecology, Organic II, etc. Mentor uploading soon.</div></div></div></div>
+    <!-- Past Questions Section -->
+    <div id="pastquestions" class="section bg-periodic"><div class="container"><h2>Past Questions Library</h2><input type="text" id="pqSearch" class="search-box" placeholder="Search by course code e.g., STB 121 or course title...">
+    <div id="pqContent"></div></div></div>
 
-    <div id="notes" class="section"><div class="container"><h2>Lecture Notes & Materials</h2><div class="grid-2"><div class="card"><i class="fas fa-flask"></i> STC 212 Instrumental Analysis: Spectrophotometry, HPLC, AAS <button class="btn-orange" style="margin-top:12px;">Download PDF</button></div><div class="card"><i class="fas fa-microscope"></i> STM 211 Microbiology: Sterilization & Control <button class="btn-orange">Download</button></div><div class="card"><i class="fas fa-calculator"></i> SLT 211 Research Methodology: Basic Statistics, t-test, Chi-square <button class="btn-orange">Download</button></div><div class="card"><i class="fas fa-bug"></i> STB 211 Pest Control: IPM, Biological techniques, Resistant varieties <button class="btn-orange">Download</button></div></div></div></div>
+    <!-- Notes Section -->
+    <div id="notes" class="section"><div class="container"><h2>Lecture Notes & Materials</h2><div class="grid-2"><div class="card"><i class="fas fa-flask"></i> STC 212 Instrumental Analysis: Spectrophotometry, HPLC, AAS, NMR</div><div class="card"><i class="fas fa-microscope"></i> STM 211 Microbiology: Sterilization, disinfection, control methods</div><div class="card"><i class="fas fa-calculator"></i> SLT 211 Research Methodology: Basic statistics, t-test, Chi-square, research design</div><div class="card"><i class="fas fa-bug"></i> STB 211 Pest Control: IPM, biological techniques, resistant varieties</div><div class="card"><i class="fas fa-atom"></i> STP 211 Electronics: Semiconductors, diodes, transistors, valves</div><div class="card"><i class="fas fa-dna"></i> STC 222 Biochemistry: Sugar tests, protein tests, glucose estimation</div></div></div></div>
 
-    <div id="brochure" class="section"><div class="container"><h2>SLT Brochure</h2><p><strong>History:</strong> Department became full in 2006, carved out of Biology, Chemistry and Physics.</p><p><strong>Career Prospects:</strong> Universities, Research Institutes, Quality Control, Pharmaceuticals, Agriculture.</p><p><strong>Admission:</strong> 5 credits including Maths + two sciences.</p><p><strong>Results Codes:</strong> NS, CO, CSO, WAR, SUS, WIT. Pass mark 40%.</p><p><strong>SIWES:</strong> After ND1 Second Semester, 3-4 months.</p><p><strong>Project/Seminar:</strong> Seminar = Ch 1-3 PPT; Project = full report Ch1-5.</p></div></div>
+    <!-- SLT Brochure -->
+    <div id="brochure" class="section"><div class="container"><h2>SLT Brochure</h2><p><strong>History:</strong> Department became full in 2006, carved out of Biology, Chemistry and Physics departments.</p><p><strong>Aim:</strong> Produce technicians capable of carrying out laboratory analysis and practical work under supervision of a technologist.</p><p><strong>Career Prospects:</strong> Universities, Research Institutes, Quality Control in Breweries, Pharmaceuticals, Agriculture, Forestry.</p><p><strong>Admission Requirements:</strong> 5 credits in WAEC/GCE/SSCE at not more than 2 sittings. Must include Mathematics + 2 from Physics, Chemistry, Biology. At least a pass in English Language.</p><p><strong>Results System:</strong> NS = No Score (see lecturer), CO = Carry Over, CSO = Courses Still Outstanding, WAR = Warning, SUS = Suspension, WIT = Withdrawal. Pass mark = 40%. Minimum attendance = 70% per semester.</p><p><strong>SIWES:</strong> Initiated 1973 by Industrial Training Fund. After ND1 Second Semester, lasts 3-4 months.</p><p><strong>Project and Seminar:</strong> Seminar = Chapter 1-3 of project as slide presentation. Project = Full report Chapters 1-5.</p></div></div>
 
-    <div id="gpcalc" class="section bg-molecular"><div class="container"><h2>GP Calculator (Poly Ibadan Scale)</h2><div id="gpApp"><div class="grid-2"><div><label>Course Code</label><input type="text" id="courseCode" placeholder="e.g., STC222"></div><div><label>Credit Unit</label><input type="number" id="creditUnit" value="3"></div><div><label>Grade</label><select id="gradeSelect"><option value="4.0">A (75-100%) 4.0</option><option value="3.5">AB (70-74) 3.5</option><option value="3.25">B (65-69) 3.25</option><option value="3.0">BC (60-64) 3.0</option><option value="2.75">C (55-59) 2.75</option><option value="2.5">CD (50-54) 2.5</option><option value="2.25">D (45-49) 2.25</option><option value="2.0">DE (40-44) 2.0</option><option value="0">F (0-39) 0</option></select></div><button class="btn-orange" id="addCourseBtn">Add Course</button></div><div><h4>Course List</h4><ul id="courseListDisplay"></ul><div class="result-box"><p id="gpaResult">GPA: --</p><p id="cgpaProj">Projected CGPA: --</p></div><button id="whatIfBtn" class="btn-orange">What-If Scenario</button></div></div></div></div>
+    <!-- GP Calculator -->
+    <div id="gpcalc" class="section bg-molecular"><div class="container"><h2>GP Calculator (Poly Ibadan Scale)</h2><div id="gpApp"><div class="grid-2"><div><label>Course Code</label><input type="text" id="courseCode" placeholder="e.g., STC222" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;color:white;border-radius:12px;"></div><div><label>Credit Unit</label><input type="number" id="creditUnit" value="3" style="width:100%;padding:10px;background:#1a1a1a;border:1px solid #333;color:white;border-radius:12px;"></div><div><label>Grade</label><select id="gradeSelect" class="grade-select"><option value="4.0">A (75-100%) 4.0</option><option value="3.5">AB (70-74) 3.5</option><option value="3.25">B (65-69) 3.25</option><option value="3.0">BC (60-64) 3.0</option><option value="2.75">C (55-59) 2.75</option><option value="2.5">CD (50-54) 2.5</option><option value="2.25">D (45-49) 2.25</option><option value="2.0">DE (40-44) 2.0</option><option value="0">F (0-39) 0</option></select></div><button class="btn-orange" id="addCourseBtn">Add Course</button></div><div><h4>Course List</h4><ul id="courseListDisplay" style="list-style:none;"></ul><div class="result-box"><p id="gpaResult">GPA: --</p><p id="cgpaProj">Classification: --</p></div><button id="whatIfBtn" class="btn-orange">What-If Scenario</button></div></div></div></div>
 
-    <div id="project-guide" class="section"><div class="container"><h2>Project & Seminar Guide</h2><p><strong>Seminar (SLT 212):</strong> Chapter 1-3 of your project topic as a slide presentation. Graded on clarity, research depth and presentation. No written exam.</p><p><strong>Project (SLT 222):</strong> Full report Chapters 1-5: Introduction, Literature Review, Methodology, Results, Discussion & Conclusion. Must include references. Defence required.</p><p><strong>Tips:</strong> Choose relevant topic, follow department format, use standard references.</p></div></div>
-    
-    <div id="siwes" class="section"><div class="container"><h2>SIWES Resources</h2><p>Industrial Training after ND1: logbook templates, report writing structure, placement guidelines.</p><p><strong>Logbook:</strong> Daily activity summary, signature by supervisor. <strong>Report:</strong> Introduction, company profile, tasks, skills acquired, challenges, conclusion.</p><button class="btn-orange">Download Logbook Template</button></div></div>
-
-    <div id="career" class="section"><div class="container"><h2>Career Hub & NISLT Certification</h2><p>NISLT registration steps, CV templates for SLT graduates. Job roles: Lab Analyst, Quality Control Officer, Research Assistant, Water Treatment Tech, Microbiologist.</p><button class="btn-orange">Download CV Template</button></div></div>
-
-    <div id="entrepreneurship" class="section"><div class="container"><h2>Entrepreneurship Corner</h2><div class="grid-2"><div class="card"><i class="fas fa-vial"></i> <strong>Reagent Preparation Service</strong> – Supply schools and labs with ready-to-use reagents. Low startup, high demand.</div><div class="card"><i class="fas fa-microscope"></i> <strong>Microscope Maintenance</strong> – Offer cleaning, repair and calibration to schools.</div><div class="card"><i class="fas fa-tint"></i> <strong>Water Testing Services</strong> – Test pH, hardness, bacteria for communities.</div><div class="card"><i class="fas fa-chart-line"></i> <strong>Lab Equipment Rental</strong> – Rent out basic equipment for students' projects.</div></div></div></div>
-
-    <div id="calendar" class="section"><div class="container"><h2>Academic Calendar (Tentative)</h2><p>ND2 Second Semester 2025/2026: Lectures start April, SIWES reporting May, Exams July. <br> ND1 timetable: Sewage Hall 2 – Monday to Friday mix of lectures and practicals as per handover.</p></div></div>
-
-    <div id="about" class="section" style="background:#0a0a0a"><div class="container"><h2>About the Founder</h2><p>Oyekanmi Prosperpeace Oluwajuwonlo, pen name Mysterious Rey. ND2 final semester student at The Polytechnic Ibadan. Creator of SLT Underground to leave a legacy for future SLT students. Passionate about science, technology, and free education. Connect: <a href="https://x.com/OProsperpeace" style="color:#E8650A;">X</a> | <a href="https://github.com/prosperpeace04" style="color:#E8650A;">GitHub</a></p></div></div>
+    <div id="project-guide" class="section"><div class="container"><h2>Project & Seminar Guide</h2><p><strong>Seminar (SLT 212):</strong> Chapter 1-3 of your project topic as a slide presentation. Graded on clarity, research depth and presentation. No written exam.</p><p><strong>Project (SLT 222):</strong> Full report Chapters 1-5: Introduction, Literature Review, Methodology, Results, Discussion & Conclusion. Defence required.</p></div></div>
+    <div id="siwes" class="section"><div class="container"><h2>SIWES Resources</h2><p>Industrial Training after ND1: logbook templates, report writing structure. Logbook: Daily activity summary, supervisor signature. Report: Introduction, company profile, tasks, skills acquired, conclusion.</p></div></div>
+    <div id="career" class="section"><div class="container"><h2>Career Hub & NISLT Certification</h2><p>NISLT registration steps, CV templates. Job roles: Lab Analyst, Quality Control Officer, Research Assistant, Water Treatment Tech, Microbiologist.</p></div></div>
+    <div id="entrepreneurship" class="section"><div class="container"><h2>Entrepreneurship Corner</h2><div class="grid-2"><div class="card"><i class="fas fa-vial"></i> <strong>Reagent Preparation Service</strong> – Supply prepared reagents to schools and labs.</div><div class="card"><i class="fas fa-microscope"></i> <strong>Microscope Maintenance</strong> – Cleaning, repair and calibration services.</div><div class="card"><i class="fas fa-tint"></i> <strong>Water Testing Services</strong> – Test pH, hardness, bacteria for communities.</div><div class="card"><i class="fas fa-chart-line"></i> <strong>Lab Equipment Rental</strong> – Rent equipment for student projects.</div></div></div></div>
+    <div id="calendar" class="section"><div class="container"><h2>Academic Calendar (Tentative)</h2><p>ND2 Second Semester 2025/2026: Lectures start April, SIWES reporting May, Exams July. ND1 timetable: Sewage Hall 2 – Monday to Friday lectures and practicals.</p></div></div>
+    <div id="about" class="section" style="background:#0a0a0a"><div class="container"><h2>About the Founder</h2><p>Oyekanmi Prosperpeace Oluwajuwonlo, pen name Mysterious Rey. ND2 final semester student at The Polytechnic Ibadan. Creator of SLT Underground to leave a legacy for future SLT students. Passionate about science, technology, and free education.</p><p>Connect: <a href="https://x.com/OProsperpeace" style="color:#E8650A;">X (Twitter)</a> | <a href="https://github.com/prosperpeace04" style="color:#E8650A;">GitHub</a> | <a href="https://oyekanmiprosperpeace.netlify.app" style="color:#E8650A;">Portfolio</a></p></div></div>
 </main>
 
 <footer><p>SLT Underground — Built by Oyekanmi Prosperpeace Oluwajuwonlo — ND2 Class of 2026. Free forever. Share freely. 💎</p><a href="https://schooltry.polyibadan.edu.ng/student">School Portal</a></footer>
 
+<!-- Prosper AI Modal -->
 <div id="prosperAiModal" class="ai-modal"><div class="ai-container"><div class="ai-header"><span><i class="fas fa-gem"></i> Prosper AI 💎</span><span id="aiModeDisplay" class="mode-badge">/normal</span><i class="fas fa-times" id="closeAiModal" style="cursor:pointer;"></i></div><div class="ai-msgs" id="aiMessages"><div class="ai-msg">💎 Greetings. I am Prosper AI. Ask me anything about SLT, science, or Poly Ibadan courses. Type /Godmode, /L99, or /ghostmode to shift my depth.</div></div><div class="ai-input-area"><input type="text" id="aiUserInput" class="ai-input" placeholder="Ask Prosper AI..."><button id="sendAiBtn" class="btn-orange">Send</button></div></div></div>
 
 <script>
-    const biochemExps = ["1. Tests for Sugars (Molisch, Fehling, Barfoed)","2. Further Tests for Sugars (Bial's, Aniline, Phenylosazone)","3. Tests on Disaccharides & Polysaccharides","4. Estimation of Glucose by Benedict's Method","5. Tests on Proteins & Amino Acids","6. Further Tests (Formaldehyde, Sakaguchi, Ninhydrin)","7. Identification of Proteins"];
-    const geneticsExps = ["1. Identification of Nucleus","2. Mitotic Cell Division","3. Meiotic Cell Division","4. Expression of Dominant Character","5. Organisms used in Genetics (Drosophila & Neurospora)","6. Variation in Seedlings","7. Deviations from Mendelian Inheritance"];
-    const ecologyExps = ["1. Porosity & Water Holding Capacity","2. Capillary Action of Soils","3. Population Size of Ants (Quadrat)","4. Earthworm Population (Gamu Park)","5. Percentage Cover of Tridax","6. Locust Population (Mark-Release-Recapture)","7. Stratification in a Forest","8. Isolating Microbial Populations"];
-    const stp221Exps = ["1. Identification of Tools & Instruments","2. Connecting 5A/13A/15A Plug","3. Component Identification (Passive/Active)","4. Component Testing (Diode, Transistor, Capacitor)","5. Resistor Value (Colour Code & Multimeter)","6. Resistor Combinations (Series/Parallel)"];
-    const glt222Exps = ["1. Glass Cutting Procedures (7 methods)","2. Drilling & Grinding Glass"];
+// Report Books Data
+const biochemExps = ["1. Tests for Sugars (Molisch, Fehling, Barfoed, Seliwanoff, Foulger)","2. Further Tests for Sugars (Bial's, Aniline, Phenylosazone, Sucrose detection)","3. Tests on Disaccharides and Polysaccharides","4. Estimation of Glucose by Benedict's Method","5. Tests on Proteins and Amino Acids (Biuret, Xanthoproteic, Millon's, Sulphur)","6. Further Tests on Proteins (Formaldehyde, Sakaguchi, Ninhydrin)","7. Identification of Proteins"];
+const geneticsExps = ["1. Identification of Nucleus in Onion Cell","2. Mitotic Cell Division in Onion Root Tip","3. Meiotic Cell Division","4. Expression of Dominant Character (Genetic Corn)","5. Organisms Used in Genetic Experiments (Drosophila & Neurospora)","6. Variation in Seedlings","7. Deviations from Mendelian Inheritance (Mouse Coat Colour)"];
+const ecologyExps = ["1. Porosity and Water Holding Capacity of Soils","2. Capillary Action of Soil Types","3. Population Size of Ants (Quadrat Method)","4. Population Size of Earthworms (Cast Counting)","5. Percentage Cover of Tridax (Line Transect)","6. Locust Population (Capture Mark Release Recapture)","7. Stratification in a Forest","8. Isolating Microbial Populations from Soil"];
+const stp221Exps = ["1. Identification of Tools and Measuring Instruments","2. Connection of 5A, 13A, 15A Plug to Cable","3. Component Identification (Passive and Active)","4. Component Testing (Diode, Transistor, Capacitor)","5. Resistor Value Measurement (Colour Code & Multimeter)","6. Resistor Combinations (Series and Parallel)"];
+const glt222Exps = ["1. Glass Cutting Procedures (7 Methods)","2. Drilling and Grinding Glass"];
 
-    function buildList(containerId, items) { let html = `<div class="grid-2">`; items.forEach(i=>{html+=`<div class="card"><i class="fas fa-flask"></i> ${i}<button class="btn-orange printBtn" style="margin-top:12px;">Print / PDF</button></div>`}); html+=`</div>`; document.getElementById(containerId).innerHTML = html; }
-    buildList("biochemList", biochemExps); buildList("geneticsList", geneticsExps); buildList("ecologyList", ecologyExps); buildList("stp221List", stp221Exps); buildList("glt222List", glt222Exps);
-    document.querySelectorAll(".printBtn").forEach(btn => btn.addEventListener("click",()=>alert("PDF download: full experiment content available in live version.")));
+function buildList(containerId, items) { let html = ''; items.forEach(i=>{html+=`<div class="card"><i class="fas fa-flask"></i> ${i}<button class="btn-orange printBtn" style="margin-top:12px;">View / Download</button></div>`}); document.getElementById(containerId).innerHTML = html; }
+buildList("biochemList", biochemExps); buildList("geneticsList", geneticsExps); buildList("ecologyList", ecologyExps); buildList("stp221List", stp221Exps); buildList("glt222List", glt222Exps);
+document.querySelectorAll(".printBtn").forEach(btn => btn.addEventListener("click",()=>alert("Full experiment content available. PDF generation ready.")));
 
-    const ham = document.getElementById("hamburgerBtn"), menu = document.getElementById("sideMenu"), overlay = document.getElementById("menuOverlay");
-    function closeMenu(){ menu.classList.remove("open"); overlay.classList.remove("active"); }
-    ham.onclick = () => { menu.classList.add("open"); overlay.classList.add("active"); };
-    overlay.onclick = closeMenu;
-    document.querySelectorAll("[data-toggle]").forEach(el => { el.onclick = (e) => { e.preventDefault(); const target = el.getAttribute("data-toggle"); document.getElementById(target).classList.toggle("show"); };});
-    document.querySelectorAll(".menu-nav-link[data-section], .sub-menu a").forEach(link => { link.onclick = (e) => { closeMenu(); const targetId = link.getAttribute("data-section"); if(targetId){ document.getElementById(targetId).scrollIntoView({behavior:"smooth"}); } }; });
-    document.getElementById("prosperAiMenuBtn").onclick = (e) => { e.preventDefault(); closeMenu(); document.getElementById("prosperAiModal").classList.add("active"); };
-    document.getElementById("closeAiModal").onclick = () => document.getElementById("prosperAiModal").classList.remove("active");
-    document.getElementById("exploreBtn").onclick = () => document.getElementById("biochem").scrollIntoView({behavior:"smooth"});
-
-    let courses = [];
-    function updateGPA(){
-        let totalPoints=0, totalCredits=0;
-        courses.forEach(c=>{ totalPoints += c.gp * c.credits; totalCredits += c.credits; });
-        let gpa = totalCredits ? (totalPoints/totalCredits).toFixed(2) : "0.00";
-        document.getElementById("gpaResult").innerHTML = `GPA: ${gpa}`;
-        let cgpa = parseFloat(gpa);
-        if(cgpa >= 3.5) document.getElementById("cgpaProj").innerHTML = "Classification: Distinction";
-        else if(cgpa >= 3.0) document.getElementById("cgpaProj").innerHTML = "Classification: Upper Credit";
-        else if(cgpa >= 2.5) document.getElementById("cgpaProj").innerHTML = "Classification: Lower Credit";
-        else if(cgpa >= 2.0) document.getElementById("cgpaProj").innerHTML = "Classification: Pass";
-        else document.getElementById("cgpaProj").
+// Past Questions Database
+const pastQuestions = [
+    {level:"ND1", semester:"Second", year:"2023/2024", code:"STB 121", title:"Cell Biology", content:"THE POLYTECHNIC, IBADAN\nFACULTY OF SCIENCE\nDEPARTMENT OF SCIENCE LABORATORY TECHNOLOGY\nSECOND SEMESTER EXAMINATION 2023/2024\nCOURSE TITLE: CELL BIOLOGY\nCOURSE CODE: STB 121\nTIME: 2 HOURS\nINSTRUCTION: ANSWER ANY FOUR QUESTIONS\n\nSECTION A\n1a. Define cell\n1b. State the cell theory\n1c. State functions of: Mitochondria, Golgi apparatus, Endoplasmic reticulum, Lysosome, Ribosome, Cell wall, V
